@@ -49,7 +49,7 @@ class HerGame {
         for (const block of this.backgroundBlocks) {
           block.drawWoodenBlock();
         }
-        this.background6.drawWoodenBlock();
+        this.background.drawWoodenBlock();
       }
       if (gameEnd == true) {
         console.log("game end");
