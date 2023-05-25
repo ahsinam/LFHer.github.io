@@ -23,7 +23,6 @@ class HerGame {
       { x: 0, y: 440, direction: "left" },
       { x: WOOD_GAP, y: 560, direction: "right" },
       { x: 0, y: 670, direction: "left" },
-      { x: 0, y: CANVAS_HEIGHT - WOOD_HEIGHT, direction: "ground" },
     ];
 
     for (const data of woodenBlockData) {
