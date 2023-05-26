@@ -16,5 +16,12 @@ const WOOD_WIDTH = CANVAS_WIDTH - WOOD_GAP;
 
 //Ladder
 const LADDER_WIDTH = 40;
+const ADD_HEIGHT = 20;
+let ladderHeight = 120;
+
+//ground ladder position
+const ladderMinXpos = 170;
+const ladderMaxYpos = 650;
+const ladderMinDistance = 200;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;

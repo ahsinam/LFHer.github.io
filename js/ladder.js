@@ -7,10 +7,16 @@ class Ladder {
     this.ladderWidth = LADDER_WIDTH;
 
     this.ladderImage = new Image();
-    this.ladderImage.src = "/Images/ladder.png";
+    this.ladderImage.src = "Images/ladder.png";
   }
 
-  drawladder() {
-    //  this.ctx.drawImage()
+  drawLadder() {
+    this.ctx.drawImage(
+      this.ladderImage,
+      this.ladderXpos,
+      this.ladderYpos,
+      this.ladderWidth,
+      this.ladderHeight
+    );
   }
 }
