@@ -12,11 +12,8 @@ class HerGame {
       WOOD_HEIGHT,
       "ground"
     );
-    this.ladder = new Ladder(
-      CANVAS_WIDTH - 200,
-      CANVAS_HEIGHT - WOOD_HEIGHT,
-      ladderHeight
-    );
+    this.ladder = new Ladder(secondLastYpos, lastYpos, ladderHeight);
+    this.topLadder = new Ladder(topLadderXpos, topLadderYpos, topLadderHeight);
 
     this.preparation = new GamePreperation(this.ctx, this.background);
 
@@ -99,6 +96,9 @@ class HerGame {
         for (const individualBlock of this.ladderBlocks) {
           individualBlock.drawLadder();
         }
+        //Draw one ladder at ground and one at top
+        this.ladder.drawLadder();
+        this.topLadder.drawLadder();
       }
       if (gameEnd == true) {
         console.log("game end");

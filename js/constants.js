@@ -19,9 +19,18 @@ const LADDER_WIDTH = 40;
 const ADD_HEIGHT = 20;
 let ladderHeight = 120;
 
-//ground ladder position
+//ladder position
 const ladderMinXpos = 170;
 const ladderMaxYpos = 650;
 const ladderMinDistance = 200;
+
+//ground ladder
+const secondLastYpos = 500;
+const lastYpos = 670;
+
+//Top ladder
+const topLadderXpos = 450;
+const topLadderYpos = 20;
+const topLadderHeight = 200;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;
