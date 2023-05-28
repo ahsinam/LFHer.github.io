@@ -52,4 +52,16 @@ let kongYpos = 130;
 let kongWidth = 100;
 let kongHeight = 90;
 
+//Group Obstalce
+const groupObsXpos = 10;
+const groupObsYpos = 160;
+const groupObsWidth = 60;
+const groupObsHeight = 50;
+
+//Individual Obstacle
+const indObsXpos = 140;
+const indObsYpos = 145;
+const indObsWidth = 50;
+const indObsHeight = 60;
+
 var highScore = +localStorage.getItem("highScoreWood") || 0;

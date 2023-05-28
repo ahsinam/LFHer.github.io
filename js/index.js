@@ -5,6 +5,7 @@ class HerGame {
     this.y = y;
     this.backgroundBlocks = [];
     this.ladderBlocks = [];
+    this.indObsBlocks = [];
     this.background = new WoodenBlock(
       0,
       CANVAS_HEIGHT - WOOD_HEIGHT,
@@ -24,8 +25,27 @@ class HerGame {
       kongHeight
     );
 
+    this.groupObstacle = new GroupObstacle(
+      this.ctx,
+      groupObsXpos,
+      groupObsYpos,
+      groupObsWidth,
+      groupObsHeight
+    );
+    this.indObstacle = new IndividualObstacle(
+      this.ctx,
+      indObsXpos,
+      indObsYpos,
+      indObsWidth,
+      indObsHeight,
+      this.ladderBlocks,
+      this.backgroundBlocks
+    );
+
     this.initWoodenBlocks();
     this.initLadderBlocks();
+    // this.initIndividualObstacle();
+
     this.mario = new Mario(
       this.ctx,
       marioStartingXpos,
@@ -142,19 +162,22 @@ class HerGame {
       if (gameEnd == false) {
         //Draw Background
         for (const block of this.backgroundBlocks) {
-          // console.log(block);
           block.drawWoodenBlock();
         }
         //Draw Ladder
         for (const individualBlock of this.ladderBlocks) {
           individualBlock.drawLadder();
         }
-        this.topLadder.drawLadder();
+        //Draw character and obstacle
         this.mario.drawMario();
         this.kong.drawKong();
+        this.groupObstacle.drawGroupObs();
+        this.indObstacle.drawIndObstacle();
+
         setInterval(() => {
+          this.indObstacle.updateIndObstacle();
           this.kong.moveKong;
-        }, 100);
+        }, 3000);
       }
       if (gameEnd == true) {
         console.log("game end");
