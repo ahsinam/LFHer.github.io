@@ -1,5 +1,5 @@
 class Mario {
-  constructor(ctx, x, y, width, height, ladder, wood) {
+  constructor(ctx, x, y, width, height, ladder, wood, individualObstacle) {
     this.ctx = ctx;
     this.marioXpos = x;
     this.marioYpos = y;
@@ -9,6 +9,7 @@ class Mario {
     this.velocityX = 1;
     this.ladder = ladder;
     this.background = wood;
+    this.individualObstacle = individualObstacle;
 
     this.marioImage = new Image();
     this.marioImage.src = "../Images/mario/marioNormal.png";
@@ -46,6 +47,7 @@ class Mario {
       this.marioWidth,
       this.marioHeight
     );
+    this.marioObstacleCollision();
   }
 
   moveMario() {
@@ -70,7 +72,7 @@ class Mario {
       this.marioYpos -= this.velocityX * 10;
     }
     if (marioDown && this.isOnLadder()) {
-      this.marioYpos += this.velocityX; // Set the flag to prevent moving up
+      this.marioYpos += this.velocityX * 10;
     }
 
     this.drawMario();
@@ -92,10 +94,10 @@ class Mario {
   isOnLadder() {
     for (const block of this.ladder) {
       if (
-        this.marioXpos + this.marioWidth >= block.ladderXpos - 2 &&
-        this.marioXpos <= block.ladderXpos + LADDER_WIDTH + 2 &&
+        this.marioXpos + this.marioWidth >= block.ladderXpos &&
+        this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
         this.marioYpos + this.marioHeight <=
-          block.ladderYpos + block.ladderHeight + 2 &&
+          block.ladderYpos + block.ladderHeight + 1 &&
         this.marioYpos + this.marioHeight >= block.ladderYpos - 30
       ) {
         return true;
@@ -103,4 +105,22 @@ class Mario {
     }
     return false;
   }
+
+  marioObstacleCollision() {
+    for (const block of this.individualObstacle) {
+      const marioFoot = this.marioYpos + this.marioHeight;
+      const objectFoot = block.indObsYpos + block.indObsHeight;
+
+      if (
+        marioFoot <= objectFoot + 3 &&
+        marioFoot >= block.indObsYpos &&
+        this.marioXpos < block.indObsXpos &&
+        this.marioXpos + this.marioWidth >= block.indObsXpos
+      ) {
+        alert("collided");
+      }
+    }
+  }
+
+  
 }

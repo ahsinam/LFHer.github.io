@@ -26,6 +26,7 @@ class HerGame {
       kongWidth,
       kongHeight
     );
+    this.fire = new Fire(this.ctx, fireXpos, fireYpos, fireWidth, fireHeight);
 
     this.groupObstacle = new GroupObstacle(
       this.ctx,
@@ -46,10 +47,6 @@ class HerGame {
       ),
     ];
 
-    this.initWoodenBlocks();
-    this.initLadderBlocks();
-    // this.initIndividualObstacle();
-
     this.mario = new Mario(
       this.ctx,
       marioStartingXpos,
@@ -57,8 +54,13 @@ class HerGame {
       marioWidth,
       marioHeight,
       this.ladderBlocks,
-      this.backgroundBlocks
+      this.backgroundBlocks,
+      this.indObstacle
     );
+
+    this.initWoodenBlocks();
+    this.initLadderBlocks();
+    // this.initIndividualObstacle();
 
     addEventListener("keydown", (e) => {
       if (e.key == "d") {
@@ -164,20 +166,6 @@ class HerGame {
 
     if (gameStart == true) {
       if (gameEnd == false) {
-        //Draw Background
-        for (const block of this.backgroundBlocks) {
-          block.drawWoodenBlock();
-        }
-        //Draw Ladder
-        for (const individualBlock of this.ladderBlocks) {
-          individualBlock.drawLadder();
-        }
-        //Draw character and obstacle
-        this.mario.drawMario();
-        this.kong.drawKong();
-        this.groupObstacle.drawGroupObs();
-        // this.indObstacle.drawIndObstacle();
-
         if (this.objectTimer) {
           clearInterval(this.objectTimer);
         }
@@ -187,6 +175,7 @@ class HerGame {
         this.objectTimer = setInterval(() => {
           this.signal += 1;
           if (!(this.signal % 1000)) {
+            this.fire.updateFire();
             this.signal = 0;
             this.indObstacle.push(
               new IndividualObstacle(
@@ -200,7 +189,6 @@ class HerGame {
               )
             );
           }
-          console.log({ ypos: this.indObstacle[0].indObsYpos });
           for (let block of this.indObstacle) {
             if (Math.ceil(block.indObsYpos) >= 910 && block.indObsXpos <= 150) {
               block.clearObstacle();
@@ -208,6 +196,19 @@ class HerGame {
             }
           }
         }, 3);
+        //Draw Background
+        for (const block of this.backgroundBlocks) {
+          block.drawWoodenBlock();
+        }
+        //Draw Ladder
+        for (const individualBlock of this.ladderBlocks) {
+          individualBlock.drawLadder();
+        }
+        //Draw character and obstacle
+        this.mario.drawMario();
+        this.kong.drawKong();
+        this.groupObstacle.drawGroupObs();
+        this.fire.drawFire();
       }
       if (gameEnd == true) {
         console.log("game end");

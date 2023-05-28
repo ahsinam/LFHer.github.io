@@ -29,37 +29,6 @@ class IndividualObstacle {
     );
   }
 
-  // updateIndObstacle() {
-  //   for (const block of this.background) {
-  //     if (block.side == "left") {
-  //       if (this.indObsXpos < block.woodXpos + block.woodWidth) {
-  //         this.indObsXpos += 1;
-  //       } else {
-  //         if (this.indObsYpos <= block.woodYpos + 120) {
-  //           this.indObsYpos += 1;
-  //         } else {
-  //           // Start moving from right to left
-  //           this.indObsXpos -= 1;
-  //           this.indObsYpos = block.woodYpos + 100;
-  //           this.updateIndObstacle();
-  //         }
-  //       }
-  //     }
-  //     if (block.side == "right") {
-  //       if (this.indObsXpos > block.woodXpos) {
-  //         this.indObsXpos -= 1;
-  //       } else {
-  //         if (this.indObsYpos <= block.woodYpos + 120) {
-  //           this.indObsYpos += 1;
-  //         } else {
-  //           this.indObsXpos -= 1;
-  //           this.indObsYpos = block.woodYpos + 100;
-  //           this.updateIndObstacle();
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
   updateIndObstacle() {
     this.drawIndObstacle();
 
@@ -87,4 +56,6 @@ class IndividualObstacle {
       this.indObsHeight
     );
   }
+
+  //End
 }

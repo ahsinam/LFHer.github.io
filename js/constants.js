@@ -62,6 +62,11 @@ const groupObsHeight = 50;
 const indObsXpos = 140;
 const indObsYpos = 145;
 const indObsWidth = 50;
-const indObsHeight = 60;
+const indObsHeight = 55;
+
+const fireXpos = 90;
+const fireYpos = 840;
+const fireWidth = 100;
+const fireHeight = 160;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;
