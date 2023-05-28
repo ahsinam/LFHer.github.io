@@ -107,20 +107,66 @@ class Mario {
   }
 
   marioObstacleCollision() {
+    // for (const block of this.individualObstacle) {
+    //   const marioFoot = this.marioYpos + this.marioHeight;
+    //   const objectFoot = block.indObsYpos + block.indObsHeight;
+
+    //   if (
+    //     marioFoot <= objectFoot + 3 &&
+    //     marioFoot >= block.indObsYpos &&
+    //     this.marioXpos < block.indObsXpos &&
+    //     this.marioXpos + this.marioWidth >= block.indObsXpos
+    //   ) {
+    //     alert("collided");
+    //   }
+    // }
     for (const block of this.individualObstacle) {
-      const marioFoot = this.marioYpos + this.marioHeight;
-      const objectFoot = block.indObsYpos + block.indObsHeight;
+      const marioRect = {
+        x: this.marioXpos,
+        y: this.marioYpos,
+        width: this.marioWidth,
+        height: this.marioHeight,
+      };
+
+      const objectRect = {
+        x: block.indObsXpos,
+        y: block.indObsYpos,
+        width: block.indObsWidth,
+        height: block.indObsHeight,
+      };
 
       if (
-        marioFoot <= objectFoot + 3 &&
-        marioFoot >= block.indObsYpos &&
-        this.marioXpos < block.indObsXpos &&
-        this.marioXpos + this.marioWidth >= block.indObsXpos
+        marioRect.x < objectRect.x + objectRect.width &&
+        marioRect.x + marioRect.width > objectRect.x &&
+        marioRect.y < objectRect.y + objectRect.height &&
+        marioRect.y + marioRect.height > objectRect.y
+      ) {
+        alert("collided");
+      }
+    }
+    for (const block of this.individualObstacle) {
+      const marioRect = {
+        x: this.marioXpos,
+        y: this.marioYpos,
+        width: this.marioWidth,
+        height: this.marioHeight,
+      };
+
+      const objectRect = {
+        x: block.indObsXpos,
+        y: block.indObsYpos,
+        width: block.indObsWidth,
+        height: block.indObsHeight,
+      };
+
+      if (
+        marioRect.x < objectRect.x + objectRect.width &&
+        marioRect.x + marioRect.width > objectRect.x &&
+        marioRect.y < objectRect.y + objectRect.height &&
+        marioRect.y + marioRect.height > objectRect.y
       ) {
         alert("collided");
       }
     }
   }
-
-  
 }
