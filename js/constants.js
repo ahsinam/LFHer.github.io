@@ -1,6 +1,6 @@
 const canvas = document.querySelector("canvas");
 const CANVAS_WIDTH = 1000;
-const CANVAS_HEIGHT = 800;
+const CANVAS_HEIGHT = 1000;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
@@ -35,7 +35,7 @@ const topLadderHeight = 200;
 
 //Mario starting Position
 const marioStartingXpos = 170;
-const marioStartingYpos = 670;
+const marioStartingYpos = 870;
 const marioWidth = 80;
 const marioHeight = 100;
 
@@ -51,11 +51,5 @@ let kongXpos = 40;
 let kongYpos = 130;
 let kongWidth = 100;
 let kongHeight = 90;
-
-//ObstacleBox Top
-const boxXpos = 15;
-const boxYpos = 160;
-const boxHeight = 50;
-const boxWIdth = 50;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;

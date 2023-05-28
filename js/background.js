@@ -18,11 +18,11 @@ class WoodenBlock {
       ? (this.currentWood = this.rotateWoodImage)
       : (this.currentWood = this.normalWoodImage);
 
-    // this.side == "left"
-    //   ? this.ctx.rotate((0.6 * Math.PI) / 180)
-    //   : "right"
-    //   ? this.ctx.rotate((-0.3 * Math.PI) / 180)
-    //   : "";
+    this.side == "left"
+      ? this.ctx.rotate((0.6 * Math.PI) / 180)
+      : "right"
+      ? this.ctx.rotate((-0.3 * Math.PI) / 180)
+      : "";
     this.ctx.drawImage(
       this.currentWood,
       this.woodXpos,

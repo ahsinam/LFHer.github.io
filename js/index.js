@@ -14,13 +14,7 @@ class HerGame {
     );
 
     this.topLadder = new Ladder(topLadderXpos, topLadderYpos, topLadderHeight);
-    this.groupObstacleBox = new GroupObstacle(
-      this.ctx,
-      boxXpos,
-      boxYpos,
-      boxWIdth,
-      boxHeight
-    );
+
     this.preparation = new GamePreperation(this.ctx, this.background);
     this.kong = new DonkeyKong(
       this.ctx,
@@ -84,7 +78,7 @@ class HerGame {
   initWoodenBlocks() {
     const woodenBlockCount = 6;
     const startY = 200;
-    const endY = 770;
+    const endY = 970;
     const gap = (endY - startY) / (woodenBlockCount - 1);
 
     for (let i = 0; i < woodenBlockCount; i++) {
@@ -121,12 +115,12 @@ class HerGame {
         {
           x: calculateRandomXpos().xPos1,
           y: ladderStartY1,
-          height: ladderEndY1 - ladderStartY1,
+          height: ladderEndY1 - ladderStartY1 + 20,
         },
         {
           x: calculateRandomXpos().xPos2,
           y: ladderStartY2,
-          height: ladderEndY2 - ladderStartY2,
+          height: ladderEndY2 - ladderStartY2 + 20,
         }
       );
     }
@@ -134,6 +128,7 @@ class HerGame {
       const ladderBlock = new Ladder(data.x, data.y, data.height);
       this.ladderBlocks.push(ladderBlock);
     }
+    this.ladderBlocks.push(this.topLadder);
   }
 
   init = () => {
@@ -147,6 +142,7 @@ class HerGame {
       if (gameEnd == false) {
         //Draw Background
         for (const block of this.backgroundBlocks) {
+          // console.log(block);
           block.drawWoodenBlock();
         }
         //Draw Ladder
@@ -156,7 +152,6 @@ class HerGame {
         this.topLadder.drawLadder();
         this.mario.drawMario();
         this.kong.drawKong();
-        this.groupObstacleBox.drawGroupObs();
         setInterval(() => {
           this.kong.moveKong;
         }, 100);
