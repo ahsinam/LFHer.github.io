@@ -35,9 +35,9 @@ const topLadderHeight = 200;
 
 //Mario starting Position
 const marioStartingXpos = 170;
-const marioStartingYpos = 870;
+const marioStartingYpos = 890;
 const marioWidth = 80;
-const marioHeight = 100;
+const marioHeight = 80;
 
 //Mario Movement
 let moveRight = false;
