@@ -7,7 +7,7 @@ class Ladder {
     this.ladderWidth = LADDER_WIDTH;
 
     this.ladderImage = new Image();
-    this.ladderImage.src = "Images/ladder.png";
+    this.ladderImage.src = "../Images/ladder.png";
   }
 
   drawLadder() {

@@ -7,9 +7,9 @@ class WoodenBlock {
     this.woodHeight = height;
     this.side = side;
     this.normalWoodImage = new Image();
-    this.normalWoodImage.src = "Images/wood/wood1.png";
+    this.normalWoodImage.src = "../Images/wood/wood1.png";
     this.rotateWoodImage = new Image();
-    this.rotateWoodImage.src = "Images/wood/woodRotate.png";
+    this.rotateWoodImage.src = "../Images/wood/woodRotate.png";
     this.currentWood = this.normalWoodImage;
   }
 
@@ -18,12 +18,11 @@ class WoodenBlock {
       ? (this.currentWood = this.rotateWoodImage)
       : (this.currentWood = this.normalWoodImage);
 
-    this.side == "left"
-      ? this.ctx.rotate((0.6 * Math.PI) / 180)
-      : "right"
-      ? this.ctx.rotate((-0.3 * Math.PI) / 180)
-      : "";
-
+    // this.side == "left"
+    //   ? this.ctx.rotate((0.6 * Math.PI) / 180)
+    //   : "right"
+    //   ? this.ctx.rotate((-0.3 * Math.PI) / 180)
+    //   : "";
     this.ctx.drawImage(
       this.currentWood,
       this.woodXpos,

@@ -12,33 +12,93 @@ class HerGame {
       WOOD_HEIGHT,
       "ground"
     );
-    this.ladder = new Ladder(secondLastYpos, lastYpos, ladderHeight);
-    this.topLadder = new Ladder(topLadderXpos, topLadderYpos, topLadderHeight);
 
+    this.topLadder = new Ladder(topLadderXpos, topLadderYpos, topLadderHeight);
+    this.groupObstacleBox = new GroupObstacle(
+      this.ctx,
+      boxXpos,
+      boxYpos,
+      boxWIdth,
+      boxHeight
+    );
     this.preparation = new GamePreperation(this.ctx, this.background);
+    this.kong = new DonkeyKong(
+      this.ctx,
+      kongXpos,
+      kongYpos,
+      kongWidth,
+      kongHeight
+    );
 
     this.initWoodenBlocks();
     this.initLadderBlocks();
+    this.mario = new Mario(
+      this.ctx,
+      marioStartingXpos,
+      marioStartingYpos,
+      marioWidth,
+      marioHeight,
+      this.ladderBlocks,
+      this.backgroundBlocks
+    );
+
+    addEventListener("keydown", (e) => {
+      if (e.key == "d") {
+        moveRight = true;
+        this.mario.moveMario();
+      }
+      if (e.key == "a") {
+        moveLeft = true;
+        this.mario.moveMario();
+      }
+      if (e.key == "w") {
+        climbLadder = true;
+        this.mario.moveMario();
+      }
+      if (e.key == "s") {
+        marioJump = true;
+        this.mario.moveMario();
+      }
+      if (e.key == "x") {
+        marioDown = true;
+        this.mario.moveMario();
+      }
+    });
+
+    addEventListener("keyup", (e) => {
+      if (e.key == "d") {
+        moveRight = false;
+      }
+      if (e.key == "a") {
+        moveLeft = false;
+      }
+      if (e.key == "w") {
+        climbLadder = false;
+      }
+      if (e.key == "s") {
+        marioJump = false;
+      }
+    });
   }
 
-  //Wooden Block
   initWoodenBlocks() {
-    const woodenBlockData = [
-      { x: 0, y: 200, direction: "left" },
-      { x: WOOD_GAP, y: 320, direction: "right" },
-      { x: 0, y: 440, direction: "left" },
-      { x: WOOD_GAP, y: 560, direction: "right" },
-      { x: 0, y: 670, direction: "left" },
-    ];
+    const woodenBlockCount = 6;
+    const startY = 200;
+    const endY = 770;
+    const gap = (endY - startY) / (woodenBlockCount - 1);
 
-    for (const data of woodenBlockData) {
+    for (let i = 0; i < woodenBlockCount; i++) {
+      const y = startY + i * gap;
+      const x = i % 2 === 0 ? 0 : WOOD_GAP;
+      const direction = i % 2 === 0 ? "left" : "right";
       const woodenBlock = new WoodenBlock(
-        data.x,
-        data.y,
+        x,
+        y,
         WOOD_WIDTH,
         WOOD_HEIGHT,
-        data.direction
+        direction
       );
+
       this.backgroundBlocks.push(woodenBlock);
     }
   }
@@ -56,9 +116,6 @@ class HerGame {
       const ladderEndY1 = positions.ladderEndY;
       const ladderStartY2 = positions.ladderStartY;
       const ladderEndY2 = positions.ladderEndY;
-
-      // const ladderStartX1 = calculateRandomXpos();
-      // const ladderStartX2 = calculateRandomXpos();
 
       ladderBlockData.push(
         {
@@ -81,6 +138,7 @@ class HerGame {
 
   init = () => {
     window.requestAnimationFrame(this.init);
+
     if (gameStart == false) {
       this.preparation.beforeStart();
     }
@@ -91,14 +149,17 @@ class HerGame {
         for (const block of this.backgroundBlocks) {
           block.drawWoodenBlock();
         }
-        this.background.drawWoodenBlock();
         //Draw Ladder
         for (const individualBlock of this.ladderBlocks) {
           individualBlock.drawLadder();
         }
-        //Draw one ladder at ground and one at top
-        this.ladder.drawLadder();
         this.topLadder.drawLadder();
+        this.mario.drawMario();
+        this.kong.drawKong();
+        this.groupObstacleBox.drawGroupObs();
+        setInterval(() => {
+          this.kong.moveKong;
+        }, 100);
       }
       if (gameEnd == true) {
         console.log("game end");
