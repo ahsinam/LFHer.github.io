@@ -15,10 +15,10 @@ class IndividualObstacle {
 
   drawIndObstacle() {
     this.ctx.clearRect(
-      this.indObsXpos - 5,
-      this.indObsYpos - 5,
-      this.indObsWidth + 5,
-      this.indObsHeight + 5
+      this.indObsXpos,
+      this.indObsYpos,
+      this.indObsWidth,
+      this.indObsHeight
     );
     this.ctx.drawImage(
       this.indObsImage,
@@ -77,5 +77,14 @@ class IndividualObstacle {
     ) {
       this.wayPointIndex++;
     }
+  }
+
+  clearObstacle() {
+    this.ctx.clearRect(
+      this.indObsXpos,
+      this.indObsYpos,
+      this.indObsWidth,
+      this.indObsHeight
+    );
   }
 }

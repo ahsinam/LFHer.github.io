@@ -6,6 +6,8 @@ class HerGame {
     this.backgroundBlocks = [];
     this.ladderBlocks = [];
     this.indObsBlocks = [];
+    this.objectTimer = null;
+    this.signal = 0;
     this.background = new WoodenBlock(
       0,
       CANVAS_HEIGHT - WOOD_HEIGHT,
@@ -32,15 +34,17 @@ class HerGame {
       groupObsWidth,
       groupObsHeight
     );
-    this.indObstacle = new IndividualObstacle(
-      this.ctx,
-      indObsXpos,
-      indObsYpos,
-      indObsWidth,
-      indObsHeight,
-      this.ladderBlocks,
-      this.backgroundBlocks
-    );
+    this.indObstacle = [
+      new IndividualObstacle(
+        this.ctx,
+        indObsXpos,
+        indObsYpos,
+        indObsWidth,
+        indObsHeight,
+        this.ladderBlocks,
+        this.backgroundBlocks
+      ),
+    ];
 
     this.initWoodenBlocks();
     this.initLadderBlocks();
@@ -172,12 +176,38 @@ class HerGame {
         this.mario.drawMario();
         this.kong.drawKong();
         this.groupObstacle.drawGroupObs();
-        this.indObstacle.drawIndObstacle();
+        // this.indObstacle.drawIndObstacle();
 
-        setInterval(() => {
-          this.indObstacle.updateIndObstacle();
-          this.kong.moveKong;
-        }, 3000);
+        if (this.objectTimer) {
+          clearInterval(this.objectTimer);
+        }
+        for (let obstacle of this.indObstacle) {
+          obstacle.updateIndObstacle();
+        }
+        this.objectTimer = setInterval(() => {
+          this.signal += 1;
+          if (!(this.signal % 1000)) {
+            this.signal = 0;
+            this.indObstacle.push(
+              new IndividualObstacle(
+                this.ctx,
+                indObsXpos,
+                indObsYpos,
+                indObsWidth,
+                indObsHeight,
+                this.ladderBlocks,
+                this.backgroundBlocks
+              )
+            );
+          }
+          console.log({ ypos: this.indObstacle[0].indObsYpos });
+          for (let block of this.indObstacle) {
+            if (Math.ceil(block.indObsYpos) >= 910 && block.indObsXpos <= 150) {
+              block.clearObstacle();
+              this.indObstacle.shift();
+            }
+          }
+        }, 3);
       }
       if (gameEnd == true) {
         console.log("game end");
