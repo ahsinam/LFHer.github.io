@@ -35,9 +35,9 @@ const topLadderHeight = 200;
 
 //Mario starting Position
 const marioStartingXpos = 170;
-const marioStartingYpos = 890;
-const marioWidth = 80;
-const marioHeight = 80;
+const marioStartingYpos = 910;
+const marioWidth = 60;
+const marioHeight = 60;
 
 //Mario Movement
 let moveRight = false;
@@ -62,7 +62,7 @@ const groupObsHeight = 50;
 const indObsXpos = 140;
 const indObsYpos = 145;
 const indObsWidth = 50;
-const indObsHeight = 55;
+const indObsHeight = 40;
 
 const fireXpos = 90;
 const fireYpos = 840;

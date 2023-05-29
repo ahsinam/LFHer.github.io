@@ -6,7 +6,7 @@ class Mario {
     this.marioHeight = height;
     this.marioWidth = width;
     this.frames = 0;
-    this.velocityX = 1;
+    this.velocityX = 5;
     this.ladder = ladder;
     this.background = wood;
     this.individualObstacle = individualObstacle;
@@ -69,10 +69,15 @@ class Mario {
     }
 
     if (climbLadder && this.isOnLadder()) {
-      this.marioYpos -= this.velocityX * 10;
+      this.marioYpos -= this.velocityX * 2;
     }
     if (marioDown && this.isOnLadder()) {
-      this.marioYpos += this.velocityX * 10;
+      this.marioYpos += this.velocityX * 2;
+    }
+
+    if (marioJump && this.isOnWood()) {
+      this.marioYpos -= 80;
+      this.marioJump = false;
     }
 
     this.drawMario();

@@ -14,10 +14,10 @@ class DonkeyKong {
   drawKong() {
     this.ctx.drawImage(
       this.kongImage,
-      // 100 * this.frames,
-      // 0,
-      // 90,
-      // 100,
+      100 * this.frames,
+      0,
+      90,
+      100,
       this.kongXpos,
       this.kongYpos,
       this.kongWidth,
@@ -26,6 +26,7 @@ class DonkeyKong {
   }
 
   moveKong() {
+    console.log(this.frames);
     this.ctx.clearRect(
       this.kongXpos,
       this.kongYpos,
