@@ -95,24 +95,34 @@ class HerGame {
 
     addEventListener("keydown", (e) => {
       if (e.key == "d") {
-        moveRight = true;
-        this.mario.moveMario();
+        if (gameStart && !gameEnd) {
+          moveRight = true;
+          this.mario.moveMario();
+        }
       }
       if (e.key == "a") {
-        moveLeft = true;
-        this.mario.moveMario();
+        if (gameStart && !gameEnd) {
+          moveLeft = true;
+          this.mario.moveMario();
+        }
       }
       if (e.key == "w") {
-        climbLadder = true;
-        this.mario.moveMario();
+        if (gameStart && !gameEnd) {
+          climbLadder = true;
+          this.mario.moveMario();
+        }
       }
       if (e.key == "s") {
-        marioJump = true;
-        this.mario.moveMario();
+        if (gameStart && !gameEnd) {
+          marioJump = true;
+          this.mario.moveMario();
+        }
       }
       if (e.key == "x") {
-        marioDown = true;
-        this.mario.moveMario();
+        if (gameStart && !gameEnd) {
+          marioDown = true;
+          this.mario.moveMario();
+        }
       }
     });
 
