@@ -9,7 +9,7 @@ class SpecialObstacle {
     this.ladder = ladder;
 
     this.specialObsImage = new Image();
-    this.specialObsImage.src = "../Images/obstacle/obstacleBottleFall.png";
+    this.specialObsImage.src = "../Images/obstacle/specialObstacle.png";
   }
 
   drawSpecialObstacle() {

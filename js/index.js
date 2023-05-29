@@ -57,6 +57,16 @@ class HerGame {
       ),
     ];
 
+    this.specialObstacle = new SpecialObstacle(
+      this.ctx,
+      indObsXpos,
+      indObsYpos,
+      indObsWidth,
+      indObsHeight,
+      this.ladderBlocks,
+      this.backgroundBlocks
+    );
+
     this.mario = new Mario(
       this.ctx,
       marioStartingXpos,
