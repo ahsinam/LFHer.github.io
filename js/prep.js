@@ -12,4 +12,14 @@ class GamePreperation {
     this.ctx.fillText(`${highScore}`, 400, 70);
     this.ctx.fillText("Press right arrowKey to start the game", 60, 190);
   }
+
+  endOfGame() {
+    this.ctx.font = "bold 40px Verdana";
+    this.ctx.fillStyle = "red";
+    this.ctx.fillText("GAME END!", 400, 190);
+  }
+
+  restartGame(){
+    
+  }
 }
