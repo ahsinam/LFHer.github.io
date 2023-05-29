@@ -1,6 +1,7 @@
 class Mario {
   constructor(ctx, x, y, width, height, ladder, wood, individualObstacle) {
     this.ctx = ctx;
+    this.originalPosition = [x, y];
     this.marioXpos = x;
     this.marioYpos = y;
     this.marioHeight = height;
@@ -136,5 +137,31 @@ class Mario {
         gameEnd = true;
       }
     }
+  }
+
+  resetMario() {
+    this.marioXpos = this.originalPosition[0];
+    this.marioYpos = this.originalPosition[1];
+    this.marioHeight = this.marioHeight;
+    this.marioWidth = this.marioWidth;
+    this.frames = 0;
+    this.velocityX = 5;
+    this.ladder = this.ladder;
+    this.background = this.background;
+    this.individualObstacle = this.individualObstacle;
+
+    this.marioImage = new Image();
+    this.marioImage.src = "../Images/mario/marioNormal.png";
+
+    this.marioRunningLeft = new Image();
+    this.marioRunningLeft.src = "../Images/mario/spriteRunningLeft.png";
+
+    this.marioMovingRight = new Image();
+    this.marioMovingRight.src = "../Images/mario/spriteRunningRight.png";
+
+    this.marioClimbing = new Image();
+    this.marioClimbing.src = "../Images/mario/spriteClimbingLadder.png";
+
+    this.currentMario = this.marioImage;
   }
 }

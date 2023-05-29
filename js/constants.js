@@ -5,8 +5,7 @@ canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
 //Game situation
-let gameStart = true;
-// let gameStart = false;
+let gameStart = false;
 let gameEnd = false;
 
 //Wooden Block
@@ -64,9 +63,20 @@ const indObsYpos = 145;
 const indObsWidth = 50;
 const indObsHeight = 40;
 
+//Burning fire
 const fireXpos = 90;
 const fireYpos = 840;
 const fireWidth = 100;
 const fireHeight = 160;
+
+//Obstacle that comes out of the fire
+const fireObsXpos = 90;
+const fireObsYpos = 935;
+const fireObsWidth = 48.5;
+const fireObsHeight = 50;
+
+//Restart Button
+const buttonWidth = 100;
+const buttonHeight = 90;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;

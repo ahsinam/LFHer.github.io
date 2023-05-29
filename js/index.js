@@ -7,7 +7,9 @@ class HerGame {
     this.ladderBlocks = [];
     this.indObsBlocks = [];
     this.objectTimer = null;
+    this.fireObsTimer = null;
     this.signal = 0;
+    this.fireSignal = 0;
     this.background = new WoodenBlock(
       0,
       CANVAS_HEIGHT - WOOD_HEIGHT,
@@ -18,7 +20,6 @@ class HerGame {
 
     this.topLadder = new Ladder(topLadderXpos, topLadderYpos, topLadderHeight);
 
-    this.preparation = new GamePreperation(this.ctx, this.background);
     this.kong = new DonkeyKong(
       this.ctx,
       kongXpos,
@@ -46,6 +47,15 @@ class HerGame {
         this.backgroundBlocks
       ),
     ];
+    this.fireObstacle = [
+      new FireObstacle(
+        this.ctx,
+        fireObsXpos,
+        fireObsYpos,
+        fireObsWidth,
+        fireObsHeight
+      ),
+    ];
 
     this.mario = new Mario(
       this.ctx,
@@ -56,6 +66,27 @@ class HerGame {
       this.ladderBlocks,
       this.backgroundBlocks,
       this.indObstacle
+    );
+
+    this.preparation = new GamePreperation(
+      this.ctx,
+      this.backgroundBlocks,
+      this.mario,
+      this.kong,
+      this.groupObstacle,
+      this.ladderBlocks
+    );
+
+    this.restart = new RestartGame(
+      this.ctx,
+      this.mario,
+      this.background,
+      this.fire,
+      this.indObstacle,
+      this.groupObstacle,
+      this.kong,
+      this.ladderBlocks,
+      this
     );
 
     this.initWoodenBlocks();
@@ -167,6 +198,13 @@ class HerGame {
     this.ladderBlocks.push(this.topLadder);
   }
 
+  reset() {
+    if (this.fireObsTimer) clearInterval(this.fireObsTimer);
+    if (this.objectTimer) clearInterval(this.objectTimer);
+    this.signal = 0;
+    this.fireSignal = 0;
+  }
+
   init = () => {
     window.requestAnimationFrame(this.init);
 
@@ -176,6 +214,7 @@ class HerGame {
 
     if (gameStart == true) {
       if (gameEnd == false) {
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (this.objectTimer) {
           clearInterval(this.objectTimer);
         }
@@ -206,6 +245,30 @@ class HerGame {
             }
           }
         }, 3);
+
+        if (this.fireObsTimer) {
+          clearInterval(this.fireObsTimer);
+        }
+        // Fire Obstacle
+        for (const fireObs of this.fireObstacle) {
+          fireObs.moveFireObstacle();
+        }
+
+        this.fireObsTimer = setInterval(() => {
+          this.fireSignal += 1;
+          if (!(this.fireSignal % 1000)) {
+            this.fireSignal = 0;
+            this.fireObstacle.push(
+              new FireObstacle(
+                (this.ctx,
+                fireObsXpos,
+                fireObsYpos,
+                fireObsWidth,
+                fireObsHeight)
+              )
+            );
+          }
+        }, 300);
         //Draw Background
         for (const block of this.backgroundBlocks) {
           block.drawWoodenBlock();
@@ -221,7 +284,15 @@ class HerGame {
         this.fire.drawFire();
       }
       if (gameEnd == true) {
-        this.preparation.endOfGame()
+        // this.preparation.endOfGame();
+        if (this.objectTimer) {
+          clearInterval(this.objectTimer);
+        }
+        if (this.fireObsTimer) {
+          clearInterval(this.fireObsTimer);
+        }
+
+        this.restart.drawButton();
       }
     }
   };
