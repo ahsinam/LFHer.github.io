@@ -60,7 +60,7 @@ const groupObsHeight = 50;
 //Individual Obstacle
 const indObsXpos = 140;
 const indObsYpos = 145;
-const indObsWidth = 50;
+const indObsWidth = 30;
 const indObsHeight = 40;
 
 //Burning fire
@@ -78,5 +78,11 @@ const fireObsHeight = 50;
 //Restart Button
 const buttonWidth = 100;
 const buttonHeight = 90;
+
+//Hammer
+const hammerXpos = 200;
+const hammerYpos = 620;
+const hammerWidth = 40;
+const hammerHeight = 40;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;

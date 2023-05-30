@@ -31,7 +31,6 @@ class IndividualObstacle {
 
   updateIndObstacle() {
     this.drawIndObstacle();
-
     const wayPoint = wayPoints[this.wayPointIndex];
     let yDistance = wayPoint.y - this.indObsYpos;
     let xDistance = wayPoint.x - this.indObsXpos;

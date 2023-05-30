@@ -67,6 +67,14 @@ class HerGame {
       this.backgroundBlocks
     );
 
+    this.powerUpHammer = new HammerPowerUp(
+      this.ctx,
+      hammerXpos,
+      hammerYpos,
+      hammerWidth,
+      hammerHeight
+    );
+
     this.mario = new Mario(
       this.ctx,
       marioStartingXpos,
@@ -75,7 +83,8 @@ class HerGame {
       marioHeight,
       this.ladderBlocks,
       this.backgroundBlocks,
-      this.indObstacle
+      this.indObstacle,
+      this.powerUpHammer
     );
 
     this.preparation = new GamePreperation(
@@ -101,7 +110,6 @@ class HerGame {
 
     this.initWoodenBlocks();
     this.initLadderBlocks();
-    // this.initIndividualObstacle();
 
     addEventListener("keydown", (e) => {
       if (e.key == "d") {
@@ -297,6 +305,10 @@ class HerGame {
         for (const individualBlock of this.ladderBlocks) {
           individualBlock.drawLadder();
         }
+
+        //PowerUP Hammer
+        this.powerUpHammer.drawHammer();
+
         //Draw character and obstacle
         this.mario.drawMario();
         this.kong.drawKong();
