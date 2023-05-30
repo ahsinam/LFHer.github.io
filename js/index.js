@@ -56,6 +56,7 @@ class HerGame {
         fireObsHeight
       ),
     ];
+    this.specialObs = [];
 
     this.specialObstacle = new SpecialObstacle(
       this.ctx,
@@ -84,7 +85,8 @@ class HerGame {
       this.ladderBlocks,
       this.backgroundBlocks,
       this.indObstacle,
-      this.powerUpHammer
+      this.powerUpHammer,
+      this.specialObs
     );
 
     this.preparation = new GamePreperation(
@@ -187,7 +189,6 @@ class HerGame {
         WOOD_HEIGHT,
         direction
       );
-
       this.backgroundBlocks.push(woodenBlock);
     }
   }
@@ -249,22 +250,64 @@ class HerGame {
         for (let obstacle of this.indObstacle) {
           obstacle.updateIndObstacle();
         }
+        // this.objectTimer = setInterval(() => {
+        //   this.signal += 1;
+        //   if (!(this.signal % 1000)) {
+        //     this.fire.updateFire();
+        //     this.signal = 0;
+        //     this.indObstacle.push(
+        //       new IndividualObstacle(
+        //         this.ctx,
+        //         indObsXpos,
+        //         indObsYpos,
+        //         indObsWidth,
+        //         indObsHeight,
+        //         this.ladderBlocks,
+        //         this.backgroundBlocks
+        //       )
+        //     );
+        //   }
+        //   for (let block of this.indObstacle) {
+        //     if (Math.ceil(block.indObsYpos) >= 910 && block.indObsXpos <= 150) {
+        //       block.clearObstacle();
+        //       this.indObstacle.shift();
+        //     }
+        //   }
+        // }, 3);
+        for (let spclObs of this.specialObs) {
+          spclObs.moveSpecialObstacle();
+        }
         this.objectTimer = setInterval(() => {
           this.signal += 1;
           if (!(this.signal % 1000)) {
             this.fire.updateFire();
             this.signal = 0;
-            this.indObstacle.push(
-              new IndividualObstacle(
-                this.ctx,
-                indObsXpos,
-                indObsYpos,
-                indObsWidth,
-                indObsHeight,
-                this.ladderBlocks,
-                this.backgroundBlocks
-              )
-            );
+            const random = Math.round(Math.random());
+            if (random) {
+              this.indObstacle.push(
+                new IndividualObstacle(
+                  this.ctx,
+                  indObsXpos,
+                  indObsYpos,
+                  indObsWidth,
+                  indObsHeight,
+                  this.ladderBlocks,
+                  this.backgroundBlocks
+                )
+              );
+            } else {
+              this.specialObs.push(
+                new SpecialObstacle(
+                  this.ctx,
+                  indObsXpos,
+                  indObsYpos,
+                  indObsWidth,
+                  indObsHeight,
+                  this.ladderBlocks,
+                  this.backgroundBlocks
+                )
+              );
+            }
           }
           for (let block of this.indObstacle) {
             if (Math.ceil(block.indObsYpos) >= 910 && block.indObsXpos <= 150) {

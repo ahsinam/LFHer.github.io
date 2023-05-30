@@ -8,7 +8,8 @@ class Mario {
     ladder,
     wood,
     individualObstacle,
-    hammer
+    hammer,
+    specialObstacle
   ) {
     this.ctx = ctx;
     this.originalPosition = [x, y];
@@ -17,11 +18,13 @@ class Mario {
     this.marioHeight = height;
     this.marioWidth = width;
     this.frames = 0;
-    this.velocityX = 5;
+    this.velocityX = 10;
     this.ladder = ladder;
     this.background = wood;
     this.individualObstacle = individualObstacle;
     this.hammer = hammer;
+    this.specialObstacle = specialObstacle;
+
     this.powerUpMode = false;
     this.powerUpTimer = null;
 
@@ -69,6 +72,7 @@ class Mario {
       this.marioHeight
     );
     this.marioObstacleCollision();
+    this.marioSpecialObjCollision();
   }
 
   moveMario() {
@@ -171,6 +175,47 @@ class Mario {
             indexOfObstacle,
             1
           );
+        }
+      }
+    }
+  }
+
+  marioSpecialObjCollision() {
+    for (const block of this.specialObstacle) {
+      const marioRect = {
+        x: this.marioXpos,
+        y: this.marioYpos,
+        width: this.marioWidth,
+        height: this.marioHeight,
+      };
+
+      const objectRect = {
+        x: block.specialObsXpos,
+        y: block.specialObsYpos,
+        width: block.specialObsWidth,
+        height: block.specialObsHeight,
+      };
+
+      if (
+        marioRect.x < objectRect.x + objectRect.width &&
+        marioRect.x + marioRect.width > objectRect.x &&
+        marioRect.y < objectRect.y + objectRect.height &&
+        marioRect.y + marioRect.height > objectRect.y &&
+        !this.powerUpMode
+      ) {
+        gameEnd = true;
+      }
+
+      if (
+        marioRect.x < objectRect.x + objectRect.width &&
+        marioRect.x + marioRect.width > objectRect.x &&
+        marioRect.y < objectRect.y + objectRect.height &&
+        marioRect.y + marioRect.height > objectRect.y &&
+        this.powerUpMode
+      ) {
+        const indexOfObstacle = this.specialObstacle.indexOf(block);
+        if (indexOfObstacle !== -1) {
+          const removeElement = this.specialObstacle.splice(indexOfObstacle, 1);
         }
       }
     }
