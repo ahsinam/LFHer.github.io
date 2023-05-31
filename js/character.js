@@ -9,7 +9,8 @@ class Mario {
     wood,
     individualObstacle,
     hammer,
-    specialObstacle
+    specialObstacle,
+    eachWoodObstalce
   ) {
     this.ctx = ctx;
     this.originalPosition = [x, y];
@@ -24,6 +25,7 @@ class Mario {
     this.individualObstacle = individualObstacle;
     this.hammer = hammer;
     this.specialObstacle = specialObstacle;
+    this.eachWoodObstalce = eachWoodObstalce;
 
     this.powerUpMode = false;
     this.powerUpTimer = null;
@@ -44,6 +46,8 @@ class Mario {
     this.marioHammer.src = "../Images/mario/marioWithHammer.png";
 
     this.currentMario = this.marioImage;
+
+    this.marioMovementAudio = new Audio("../sound/marioMovement.mp3");
   }
 
   drawMario() {
@@ -73,6 +77,7 @@ class Mario {
     );
     this.marioObstacleCollision();
     this.marioSpecialObjCollision();
+    this.marioBlueObsCollision();
   }
 
   moveMario() {
@@ -105,7 +110,16 @@ class Mario {
       this.marioJump = true;
     }
 
+    if (this.marioYpos < 100 && score > 10) {
+      level1 = false;
+      level2 = true;
+
+      localStorage.setItem("level1", level1);
+      localStorage.setItem("level2", level2);
+    }
+
     this.drawMario();
+    // this.marioMovementAudio.play();
   }
 
   isOnWood() {
@@ -171,10 +185,8 @@ class Mario {
       ) {
         const indexOfObstacle = this.individualObstacle.indexOf(block);
         if (indexOfObstacle !== -1) {
-          const removeElement = this.individualObstacle.splice(
-            indexOfObstacle,
-            1
-          );
+          this.individualObstacle.splice(indexOfObstacle, 1);
+          score++;
         }
       }
     }
@@ -215,7 +227,8 @@ class Mario {
       ) {
         const indexOfObstacle = this.specialObstacle.indexOf(block);
         if (indexOfObstacle !== -1) {
-          const removeElement = this.specialObstacle.splice(indexOfObstacle, 1);
+          this.specialObstacle.splice(indexOfObstacle, 1);
+          score += 1;
         }
       }
     }
@@ -260,6 +273,47 @@ class Mario {
         this.powerUpMode = false;
       }, 10000);
       this.hammer.hammerXpos = -100;
+    }
+  }
+
+  marioBlueObsCollision() {
+    for (const block of this.eachWoodObstalce) {
+      const marioRect = {
+        x: this.marioXpos,
+        y: this.marioYpos,
+        width: this.marioWidth,
+        height: this.marioHeight,
+      };
+
+      const objectRect = {
+        x: block.blueObsXpos,
+        y: block.blueObsYpos,
+        width: block.blueObsWidth,
+        height: block.blueObsHeight,
+      };
+
+      if (
+        marioRect.x < objectRect.x + objectRect.width &&
+        marioRect.x + marioRect.width > objectRect.x &&
+        marioRect.y < objectRect.y + objectRect.height &&
+        marioRect.y + marioRect.height > objectRect.y &&
+        !this.powerUpMode
+      ) {
+        console.log("collisioon");
+      }
+      if (
+        marioRect.x < objectRect.x + objectRect.width &&
+        marioRect.x + marioRect.width > objectRect.x &&
+        marioRect.y < objectRect.y + objectRect.height &&
+        marioRect.y + marioRect.height > objectRect.y &&
+        this.powerUpMode
+      ) {
+        const indexOfObstacle = this.eachWoodObstalce.indexOf(block);
+        if (indexOfObstacle !== -1) {
+          this.eachWoodObstalce.splice(indexOfObstacle, 1);
+          score++;
+        }
+      }
     }
   }
 }

@@ -36,8 +36,4 @@ class Fire {
     if (this.frames > 4) this.frames = 0;
     this.drawFire();
   }
-
-  generateFireObstacle (){
-    
-  }
 }

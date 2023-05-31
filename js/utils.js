@@ -19,3 +19,18 @@ const calculateRandomXpos = () => {
 
   return { xPos1, xPos2 };
 };
+
+const generateRandomNumber = () => {
+  const randomNumber = Math.round(Math.random());
+
+  return randomNumber;
+};
+
+const generateRandomXpos = (minXvalue) => {
+  const maxXvalue = minXvalue + WOOD_WIDTH;
+  const xValue = Math.round(
+    Math.random() * (maxXvalue - minXvalue) + minXvalue
+  );
+
+  return xValue;
+};

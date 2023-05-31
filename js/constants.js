@@ -70,7 +70,7 @@ const fireWidth = 100;
 const fireHeight = 160;
 
 //Obstacle that comes out of the fire
-const fireObsXpos = 90;
+const fireObsXpos = 140;
 const fireObsYpos = 935;
 const fireObsWidth = 48.5;
 const fireObsHeight = 50;
@@ -84,5 +84,15 @@ const hammerXpos = 200;
 const hammerYpos = 620;
 const hammerWidth = 40;
 const hammerHeight = 40;
+
+//Blue Obstacle
+const blueObsWidth = 60;
+const blueObsHeight = 40;
+
+var level1 = +localStorage.getItem("level1") || true;
+var level2 = +localStorage.getItem("level2") || false;
+
+//Score
+let score = 0;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;

@@ -1,10 +1,12 @@
 class FireObstacle {
-  constructor(ctx, x, y, width, height) {
+  constructor(ctx, x, y, width, height, ladder) {
     this.ctx = ctx;
     this.fireObsXpos = x;
     this.fireObsYpos = y;
     this.fireObsWidth = width;
     this.fireObsHeight = height;
+    this.ladder = ladder;
+    this.wayPointIndex = 12;
 
     this.frames = 0;
     this.fireObsImage = new Image();
@@ -34,9 +36,33 @@ class FireObstacle {
   moveFireObstacle() {
     this.drawFireObstacle();
     this.frames++;
-    if (this.frames > 3) this.frames = 0;
+    if (this.frames > 3) {
+      this.frames = 0;
+    }
     this.fireObsXpos++;
+    // if (this.collisionWithLadder()) {
+    //   const random = generateRandomNumber();
+    //   console.log(random);
+    //   if (random) {
+    //     this.fireObsXpos++;
+    //   } else {
+    //     this.fireObsYpos--;
+    //   }
+    // }
   }
 
-  
+  collisionWithLadder() {
+    for (const block of this.ladder) {
+      if (
+        this.fireObsXpos + this.fireObsWidth >= block.ladderXpos &&
+        this.fireObsXpos <= block.ladderXpos + LADDER_WIDTH &&
+        this.fireObsYpos + this.fireObsHeight <=
+          block.ladderYpos + block.ladderHeight + 1 &&
+        this.fireObsYpos + this.fireObsHeight >= block.ladderYpos - 30
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

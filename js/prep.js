@@ -67,4 +67,13 @@ class GamePreperation {
     this.ctx.fillStyle = "red";
     this.ctx.fillText("GAME END!", 400, 190);
   }
+
+  scoreBoard() {
+    this.ctx.font = "bold 24px Verdana";
+    this.ctx.fillStyle = "black";
+    this.ctx.fillText("Score: ", 10, 40);
+    this.ctx.fillText(score, 120, 40);
+  }
+
+  
 }

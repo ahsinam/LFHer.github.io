@@ -53,7 +53,8 @@ class HerGame {
         fireObsXpos,
         fireObsYpos,
         fireObsWidth,
-        fireObsHeight
+        fireObsHeight,
+        this.ladderBlocks
       ),
     ];
     this.specialObs = [];
@@ -76,6 +77,8 @@ class HerGame {
       hammerHeight
     );
 
+    this.eachWoodObstacle = [];
+    
     this.mario = new Mario(
       this.ctx,
       marioStartingXpos,
@@ -86,7 +89,8 @@ class HerGame {
       this.backgroundBlocks,
       this.indObstacle,
       this.powerUpHammer,
-      this.specialObs
+      this.specialObs,
+      this.eachWoodObstacle
     );
 
     this.preparation = new GamePreperation(
@@ -112,6 +116,7 @@ class HerGame {
 
     this.initWoodenBlocks();
     this.initLadderBlocks();
+    this.initBlueObstacle();
 
     addEventListener("keydown", (e) => {
       if (e.key == "d") {
@@ -227,6 +232,22 @@ class HerGame {
     this.ladderBlocks.push(this.topLadder);
   }
 
+  initBlueObstacle() {
+    for (let i = 0; i < this.backgroundBlocks.length - 1; i++) {
+      const currentBlock = this.backgroundBlocks[i];
+      const xpos = generateRandomXpos(currentBlock.woodXpos);
+      const ypos = currentBlock.woodYpos - blueObsHeight;
+
+      const blueObstacleData = new ObstacleInEachWood(
+        this.ctx,
+        xpos,
+        ypos,
+        this.backgroundBlocks
+      );
+      this.eachWoodObstacle.push(blueObstacleData);
+    }
+  }
+
   reset() {
     if (this.fireObsTimer) clearInterval(this.fireObsTimer);
     if (this.objectTimer) clearInterval(this.objectTimer);
@@ -236,130 +257,122 @@ class HerGame {
 
   init = () => {
     window.requestAnimationFrame(this.init);
-
     if (gameStart == false) {
       this.preparation.beforeStart();
     }
-
     if (gameStart == true) {
       if (gameEnd == false) {
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (this.objectTimer) {
-          clearInterval(this.objectTimer);
-        }
-        for (let obstacle of this.indObstacle) {
-          obstacle.updateIndObstacle();
-        }
-        // this.objectTimer = setInterval(() => {
-        //   this.signal += 1;
-        //   if (!(this.signal % 1000)) {
-        //     this.fire.updateFire();
-        //     this.signal = 0;
-        //     this.indObstacle.push(
-        //       new IndividualObstacle(
-        //         this.ctx,
-        //         indObsXpos,
-        //         indObsYpos,
-        //         indObsWidth,
-        //         indObsHeight,
-        //         this.ladderBlocks,
-        //         this.backgroundBlocks
-        //       )
-        //     );
-        //   }
-        //   for (let block of this.indObstacle) {
-        //     if (Math.ceil(block.indObsYpos) >= 910 && block.indObsXpos <= 150) {
-        //       block.clearObstacle();
-        //       this.indObstacle.shift();
-        //     }
-        //   }
-        // }, 3);
-        for (let spclObs of this.specialObs) {
-          spclObs.moveSpecialObstacle();
-        }
-        this.objectTimer = setInterval(() => {
-          this.signal += 1;
-          if (!(this.signal % 1000)) {
-            this.fire.updateFire();
-            this.signal = 0;
-            const random = Math.round(Math.random());
-            if (random) {
-              this.indObstacle.push(
-                new IndividualObstacle(
-                  this.ctx,
-                  indObsXpos,
-                  indObsYpos,
-                  indObsWidth,
-                  indObsHeight,
-                  this.ladderBlocks,
-                  this.backgroundBlocks
-                )
-              );
-            } else {
-              this.specialObs.push(
-                new SpecialObstacle(
-                  this.ctx,
-                  indObsXpos,
-                  indObsYpos,
-                  indObsWidth,
-                  indObsHeight,
-                  this.ladderBlocks,
-                  this.backgroundBlocks
+        if (level1 & !level2) {
+          this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+          this.preparation.scoreBoard();
+          if (this.objectTimer) {
+            clearInterval(this.objectTimer);
+          }
+          for (let obstacle of this.indObstacle) {
+            obstacle.updateIndObstacle();
+          }
+
+          for (let spclObs of this.specialObs) {
+            spclObs.moveSpecialObstacle();
+          }
+
+          for (let blueObs of this.eachWoodObstacle) {
+            blueObs.moveWoodObstacle();
+          }
+          this.objectTimer = setInterval(() => {
+            this.signal += 1;
+            if (!(this.signal % 1000)) {
+              this.fire.updateFire();
+              this.signal = 0;
+              const random = Math.round(Math.random());
+              if (random) {
+                this.indObstacle.push(
+                  new IndividualObstacle(
+                    this.ctx,
+                    indObsXpos,
+                    indObsYpos,
+                    indObsWidth,
+                    indObsHeight,
+                    this.ladderBlocks,
+                    this.backgroundBlocks
+                  )
+                );
+              } else {
+                this.specialObs.push(
+                  new SpecialObstacle(
+                    this.ctx,
+                    indObsXpos,
+                    indObsYpos,
+                    indObsWidth,
+                    indObsHeight,
+                    this.ladderBlocks,
+                    this.backgroundBlocks
+                  )
+                );
+              }
+            }
+
+            for (let block of this.indObstacle) {
+              if (
+                Math.ceil(block.indObsYpos) >= 910 &&
+                block.indObsXpos <= 150
+              ) {
+                block.clearObstacle();
+                this.indObstacle.shift();
+              }
+            }
+          }, 3);
+
+          if (this.fireObsTimer) {
+            clearInterval(this.fireObsTimer);
+          }
+          // Fire Obstacle
+          for (const fireObs of this.fireObstacle) {
+            fireObs.moveFireObstacle();
+          }
+
+          this.fireObsTimer = setInterval(() => {
+            this.fireSignal += 1;
+            if (!(this.fireSignal % 1000)) {
+              this.fireSignal = 0;
+              this.fireObstacle.push(
+                new FireObstacle(
+                  (this.ctx,
+                  fireObsXpos,
+                  fireObsYpos,
+                  fireObsWidth,
+                  fireObsHeight)
                 )
               );
             }
+          }, 300);
+          //Draw Background
+          for (const block of this.backgroundBlocks) {
+            block.drawWoodenBlock();
           }
-          for (let block of this.indObstacle) {
-            if (Math.ceil(block.indObsYpos) >= 910 && block.indObsXpos <= 150) {
-              block.clearObstacle();
-              this.indObstacle.shift();
-            }
+          //Draw Ladder
+          for (const individualBlock of this.ladderBlocks) {
+            individualBlock.drawLadder();
           }
-        }, 3);
 
-        if (this.fireObsTimer) {
-          clearInterval(this.fireObsTimer);
-        }
-        // Fire Obstacle
-        for (const fireObs of this.fireObstacle) {
-          fireObs.moveFireObstacle();
-        }
+          //PowerUP Hammer
+          this.powerUpHammer.drawHammer();
 
-        this.fireObsTimer = setInterval(() => {
-          this.fireSignal += 1;
-          if (!(this.fireSignal % 1000)) {
-            this.fireSignal = 0;
-            this.fireObstacle.push(
-              new FireObstacle(
-                (this.ctx,
-                fireObsXpos,
-                fireObsYpos,
-                fireObsWidth,
-                fireObsHeight)
-              )
-            );
-          }
-        }, 300);
-        //Draw Background
-        for (const block of this.backgroundBlocks) {
-          block.drawWoodenBlock();
+          //Draw character and obstacle
+          this.mario.drawMario();
+          this.kong.drawKong();
+          this.groupObstacle.drawGroupObs();
+          this.fire.drawFire();
+        } else {
+          this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
-        //Draw Ladder
-        for (const individualBlock of this.ladderBlocks) {
-          individualBlock.drawLadder();
-        }
-
-        //PowerUP Hammer
-        this.powerUpHammer.drawHammer();
-
-        //Draw character and obstacle
-        this.mario.drawMario();
-        this.kong.drawKong();
-        this.groupObstacle.drawGroupObs();
-        this.fire.drawFire();
       }
       if (gameEnd == true) {
-        // this.preparation.endOfGame();
+        if (score > highScore) {
+          highScore = score;
+          localStorage.setItem("highScoreWood", score);
+        }
+        this.preparation.endOfGame();
         if (this.objectTimer) {
           clearInterval(this.objectTimer);
         }
