@@ -34,3 +34,5 @@ const generateRandomXpos = (minXvalue) => {
 
   return xValue;
 };
+
+

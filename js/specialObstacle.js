@@ -36,27 +36,11 @@ class SpecialObstacle {
   moveSpecialObstacle() {
     this.drawSpecialObstacle();
 
-    // const wayPoint = wayPoints[this.wayPointIndex];
-    // let yDistance = wayPoint.y - this.specialObsYpos;
-    // let xDistance = wayPoint.x - this.specialObsXpos;
-    // let angle = Math.atan2(yDistance, xDistance);
-    // this.specialObsXpos += Math.cos(angle);
-    // this.specialObsYpos += Math.sin(angle);
-
-    // if (
-    //   Math.round(this.specialObsXpos) == Math.round(wayPoint.x) &&
-    //   Math.round(this.specialObsYpos) == Math.round(wayPoint.y) &&
-    //   this.wayPointIndex < wayPoints.length - 1
-    // ) {
-    //   this.wayPointIndex++;
-    // }
-
     const wayPoint = wayPoints[this.wayPointIndex];
     let yDistance = wayPoint.y - this.specialObsYpos;
     let xDistance = wayPoint.x - this.specialObsXpos;
     //Check for collision with ladder
     if (this.collisionWithLadder()) {
-      console.log(this.collisionWithLadder());
       const random = generateRandomNumber();
       if (random) {
         //Falls through the ladder
@@ -102,3 +86,18 @@ class SpecialObstacle {
     return collisionResult;
   }
 }
+
+// const wayPoint = wayPoints[this.wayPointIndex];
+// let yDistance = wayPoint.y - this.specialObsYpos;
+// let xDistance = wayPoint.x - this.specialObsXpos;
+// let angle = Math.atan2(yDistance, xDistance);
+// this.specialObsXpos += Math.cos(angle);
+// this.specialObsYpos += Math.sin(angle);
+
+// if (
+//   Math.round(this.specialObsXpos) == Math.round(wayPoint.x) &&
+//   Math.round(this.specialObsYpos) == Math.round(wayPoint.y) &&
+//   this.wayPointIndex < wayPoints.length - 1
+// ) {
+//   this.wayPointIndex++;
+// }

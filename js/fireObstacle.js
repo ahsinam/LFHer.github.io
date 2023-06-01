@@ -39,16 +39,23 @@ class FireObstacle {
     if (this.frames > 3) {
       this.frames = 0;
     }
-    this.fireObsXpos++;
-    // if (this.collisionWithLadder()) {
-    //   const random = generateRandomNumber();
-    //   console.log(random);
-    //   if (random) {
-    //     this.fireObsXpos++;
-    //   } else {
-    //     this.fireObsYpos--;
-    //   }
-    // }
+
+    if (this.collisionWithLadder()) {
+      const random = generateRandomNumber();
+
+      if (random) {
+        if (this.fireObsXpos == 840) {
+          this.fireObsXpos--;
+        }
+        if (this.fireObsXpos == 140) {
+          this.fireObsXpos++;
+        }
+      } else {
+        this.fireObsYpos -= 120;
+      }
+    } else {
+          this.fireObsXpos++;
+    }
   }
 
   collisionWithLadder() {

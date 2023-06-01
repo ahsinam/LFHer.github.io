@@ -10,6 +10,8 @@ class HerGame {
     this.fireObsTimer = null;
     this.signal = 0;
     this.fireSignal = 0;
+    this.Level2BackgroundBlocks = [];
+    this.level2LadderBlocks = [];
     this.background = new WoodenBlock(
       0,
       CANVAS_HEIGHT - WOOD_HEIGHT,
@@ -78,7 +80,7 @@ class HerGame {
     );
 
     this.eachWoodObstacle = [];
-    
+
     this.mario = new Mario(
       this.ctx,
       marioStartingXpos,
@@ -117,6 +119,8 @@ class HerGame {
     this.initWoodenBlocks();
     this.initLadderBlocks();
     this.initBlueObstacle();
+    this.init2ndLevelWoodenBlocks();
+    this.init2ndLevelLadderBlocks();
 
     addEventListener("keydown", (e) => {
       if (e.key == "d") {
@@ -248,6 +252,24 @@ class HerGame {
     }
   }
 
+  init2ndLevelWoodenBlocks() {
+    for (const data of Lvl2WoodenBlock) {
+      const level2Block = new WoodenBlock(
+        data.x,
+        data.y,
+        data.width,
+        WOOD_HEIGHT
+      );
+      this.Level2BackgroundBlocks.push(level2Block);
+    }
+  }
+
+  init2ndLevelLadderBlocks() {
+    for (const data of lvl2LadderBlockData) {
+      const level2Ladder = new Ladder(data.x, data.y, 200);
+      this.level2LadderBlocks.push(level2Ladder);
+    }
+  }
   reset() {
     if (this.fireObsTimer) clearInterval(this.fireObsTimer);
     if (this.objectTimer) clearInterval(this.objectTimer);
@@ -365,6 +387,13 @@ class HerGame {
           this.fire.drawFire();
         } else {
           this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (const block of this.Level2BackgroundBlocks) {
+            block.drawWoodenBlock();
+          }
+          for (const data of this.level2LadderBlocks) {
+            data.drawLadder();
+          }
+          this.mario.drawMario();
         }
       }
       if (gameEnd == true) {

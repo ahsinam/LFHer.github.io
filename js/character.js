@@ -110,7 +110,7 @@ class Mario {
       this.marioJump = true;
     }
 
-    if (this.marioYpos < 100 && score > 10) {
+    if (this.marioYpos < 100) {
       level1 = false;
       level2 = true;
 
