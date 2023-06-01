@@ -89,6 +89,12 @@ const hammerHeight = 40;
 const blueObsWidth = 60;
 const blueObsHeight = 40;
 
+//Burner
+const burenerXpos = 400;
+const burnerYpos = 300;
+const BURNER_WIDTH = 150;
+const BURNER_HEIGHT = 150;
+
 // var level1 = +localStorage.getItem("level1") || true;
 // var level2 = +localStorage.getItem("level2") || false;
 var level1 = +localStorage.getItem("level1") || false;

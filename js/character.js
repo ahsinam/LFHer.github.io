@@ -10,7 +10,8 @@ class Mario {
     individualObstacle,
     hammer,
     specialObstacle,
-    eachWoodObstalce
+    eachWoodObstalce,
+    lvl2Ladder
   ) {
     this.ctx = ctx;
     this.originalPosition = [x, y];
@@ -26,6 +27,7 @@ class Mario {
     this.hammer = hammer;
     this.specialObstacle = specialObstacle;
     this.eachWoodObstalce = eachWoodObstalce;
+    this.lvl2ladder = lvl2Ladder;
 
     this.powerUpMode = false;
     this.powerUpTimer = null;
@@ -107,6 +109,7 @@ class Mario {
 
     if (marioJump && this.isOnWood()) {
       this.marioYpos -= 80;
+      this.marioXpos += 100;
       this.marioJump = true;
     }
 
@@ -136,15 +139,31 @@ class Mario {
   }
 
   isOnLadder() {
-    for (const block of this.ladder) {
-      if (
-        this.marioXpos + this.marioWidth >= block.ladderXpos &&
-        this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
-        this.marioYpos + this.marioHeight <=
-          block.ladderYpos + block.ladderHeight + 1 &&
-        this.marioYpos + this.marioHeight >= block.ladderYpos - 30
-      ) {
-        return true;
+    if (level1 && !level2) {
+      for (const block of this.ladder) {
+        if (
+          this.marioXpos + this.marioWidth >= block.ladderXpos &&
+          this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
+          this.marioYpos + this.marioHeight <=
+            block.ladderYpos + block.ladderHeight + 1 &&
+          this.marioYpos + this.marioHeight >= block.ladderYpos - 30
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+    if (!level1 && level2) {
+      for (const block of this.lvl2ladder) {
+        if (
+          this.marioXpos + this.marioWidth >= block.ladderXpos &&
+          this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
+          this.marioYpos + this.marioHeight <=
+            block.ladderYpos + block.ladderHeight + 1 &&
+          this.marioYpos + this.marioHeight >= block.ladderYpos - 30
+        ) {
+          return true;
+        }
       }
     }
     return false;
@@ -299,7 +318,7 @@ class Mario {
         marioRect.y + marioRect.height > objectRect.y &&
         !this.powerUpMode
       ) {
-        console.log("collisioon");
+        // console.log("collisioon");
       }
       if (
         marioRect.x < objectRect.x + objectRect.width &&

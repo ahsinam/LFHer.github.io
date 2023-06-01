@@ -92,7 +92,8 @@ class HerGame {
       this.indObstacle,
       this.powerUpHammer,
       this.specialObs,
-      this.eachWoodObstacle
+      this.eachWoodObstacle,
+      this.level2LadderBlocks
     );
 
     this.preparation = new GamePreperation(
@@ -114,6 +115,13 @@ class HerGame {
       this.kong,
       this.ladderBlocks,
       this
+    );
+    this.burner = new Burner(
+      this.ctx,
+      burenerXpos,
+      burnerYpos,
+      BURNER_WIDTH,
+      BURNER_HEIGHT
     );
 
     this.initWoodenBlocks();
@@ -387,6 +395,9 @@ class HerGame {
           this.fire.drawFire();
         } else {
           this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+          this.ladderBlocks = [];
+          this.backgroundBlocks = [];
+
           for (const block of this.Level2BackgroundBlocks) {
             block.drawWoodenBlock();
           }
@@ -394,6 +405,7 @@ class HerGame {
             data.drawLadder();
           }
           this.mario.drawMario();
+          this.burner.drawBurner();
         }
       }
       if (gameEnd == true) {
