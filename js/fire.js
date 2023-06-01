@@ -8,16 +8,18 @@ class Fire {
 
     this.frames = 0;
     this.fireImage = new Image();
-    this.fireImage.src = "../Images/fire/fireSprite1.png";
+    this.fireImage.src = "../Images/fire/fireImage.png";
+
+    setInterval(() => this.changeFrame(), 1000);
   }
 
   drawFire() {
     this.ctx.drawImage(
       this.fireImage,
-      49.6 * this.frames,
+      120 * this.frames,
       0,
-      49.6,
-      92,
+      120,
+      166,
       this.fireXpos,
       this.fireYpos,
       this.fireWidth,
@@ -25,15 +27,8 @@ class Fire {
     );
   }
 
-  updateFire() {
-    this.ctx.clearRect(
-      this.fireXpos,
-      this.fireYpos,
-      this.fireWidth,
-      this.fireHeight
-    );
+  changeFrame() {
     this.frames++;
     if (this.frames > 4) this.frames = 0;
-    this.drawFire();
   }
 }

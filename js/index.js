@@ -56,7 +56,8 @@ class HerGame {
         fireObsYpos,
         fireObsWidth,
         fireObsHeight,
-        this.ladderBlocks
+        this.ladderBlocks,
+        this.backgroundBlocks
       ),
     ];
     this.specialObs = [];
@@ -312,7 +313,6 @@ class HerGame {
           this.objectTimer = setInterval(() => {
             this.signal += 1;
             if (!(this.signal % 1000)) {
-              this.fire.updateFire();
               this.signal = 0;
               const random = Math.round(Math.random());
               if (random) {
@@ -346,6 +346,15 @@ class HerGame {
               if (
                 Math.ceil(block.indObsYpos) >= 910 &&
                 block.indObsXpos <= 150
+              ) {
+                block.clearObstacle();
+                this.indObstacle.shift();
+              }
+            }
+            for (let block of this.specialObs) {
+              if (
+                Math.ceil(block.specialObsYpos) >= 910 &&
+                block.specialObsXpos <= 150
               ) {
                 block.clearObstacle();
                 this.indObstacle.shift();
@@ -397,6 +406,7 @@ class HerGame {
           this.ctx.clearRect(0, 0, canvas.width, canvas.height);
           this.ladderBlocks = [];
           this.backgroundBlocks = [];
+          this.preparation.scoreBoard();
 
           for (const block of this.Level2BackgroundBlocks) {
             block.drawWoodenBlock();

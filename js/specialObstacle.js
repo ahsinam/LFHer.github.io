@@ -67,6 +67,15 @@ class SpecialObstacle {
     }
   }
 
+  clearObstacle() {
+    this.ctx.clearRect(
+      this.specialObsXpos,
+      this.specialObsYpos,
+      this.specialObsWidth,
+      this.specialObsHeight
+    );
+  }
+
   changeFrame() {
     this.frames++;
     if (this.frames > 3) this.frames = 0;

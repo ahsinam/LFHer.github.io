@@ -7,6 +7,7 @@ class ObstacleInEachWood {
     this.blueObsHeight = blueObsHeight;
     this.background = wood;
     this.frames = 0;
+    this.dx = 1;
 
     this.blueObsImage = new Image();
     this.blueObsImage.src = "../Images/obstacle/obstacleBlue.png";
@@ -30,6 +31,13 @@ class ObstacleInEachWood {
 
   moveWoodObstacle() {
     this.drawWoodObstacle();
+    if (this.blueObsXpos + this.dx > 760) {
+      this.dx = -1;
+    }
+    if (this.blueObsXpos + this.dx < 140) {
+      this.dx = 1;
+    }
+    this.blueObsXpos += this.dx;
   }
 
   changeFrame() {

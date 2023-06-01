@@ -64,13 +64,13 @@ const indObsWidth = 30;
 const indObsHeight = 40;
 
 //Burning fire
-const fireXpos = 90;
-const fireYpos = 840;
-const fireWidth = 100;
-const fireHeight = 160;
+const fireXpos = 50;
+const fireYpos = 850;
+const fireWidth = 120;
+const fireHeight = 166;
 
 //Obstacle that comes out of the fire
-const fireObsXpos = 140;
+const fireObsXpos = 350;
 const fireObsYpos = 935;
 const fireObsWidth = 48.5;
 const fireObsHeight = 50;
@@ -95,10 +95,10 @@ const burnerYpos = 300;
 const BURNER_WIDTH = 150;
 const BURNER_HEIGHT = 150;
 
-// var level1 = +localStorage.getItem("level1") || true;
-// var level2 = +localStorage.getItem("level2") || false;
-var level1 = +localStorage.getItem("level1") || false;
-var level2 = +localStorage.getItem("level2") || true;
+var level1 = +localStorage.getItem("level1") || true;
+var level2 = +localStorage.getItem("level2") || false;
+// var level1 = +localStorage.getItem("level1") || false;
+// var level2 = +localStorage.getItem("level2") || true;
 
 //Score
 let score = 0;
