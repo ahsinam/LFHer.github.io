@@ -37,22 +37,16 @@ class SpecialObstacle {
     this.drawSpecialObstacle();
 
     const wayPoint = wayPoints[this.wayPointIndex];
+    if (!wayPoint) {
+      this.clearObstacle();
+      return;
+    }
     let yDistance = wayPoint.y - this.specialObsYpos;
     let xDistance = wayPoint.x - this.specialObsXpos;
     //Check for collision with ladder
     if (this.collisionWithLadder()) {
-      const random = generateRandomNumber();
-      if (random) {
-        //Falls through the ladder
-
-        this.specialObsYpos += 120;
-        this.wayPointIndex += 2;
-      } else {
-        //Move towards next waypoint
-        let angle = Math.atan2(yDistance, xDistance);
-        this.specialObsXpos += Math.cos(angle);
-        this.specialObsYpos += Math.sin(angle);
-      }
+      this.specialObsYpos += 120;
+      this.wayPointIndex += 2;
     } else {
       let angle = Math.atan2(yDistance, xDistance);
       this.specialObsXpos += Math.cos(angle);
@@ -83,19 +77,32 @@ class SpecialObstacle {
   }
 
   collisionWithLadder() {
-    for (const block in this.ladder) {
-      const objectRect = {
-        x: this.specialObsXpos,
-        y: this.specialObsYpos,
-        width: this.specialObsWidth,
-        heght: this.specialObsHeight,
-      };
-      if (
-        objectRect.x < block.x + block.ladderWidth &&
-        objectRect.x + objectRect.width > block.ladderXpos &&
-        objectRect.y
-      ) {
+    const obsMidX = this.specialObsXpos + this.specialObsWidth / 2;
+    const obsLadYThres = this.specialObsYpos + this.specialObsHeight + 20;
+
+    for (const block of this.ladder) {
+      if (block.ladderYpos < this.specialObsYpos) {
+        continue;
       }
+      if (obsLadYThres < block.ladderYpos) {
+        continue;
+      }
+
+      if (block.ladderYpos + block.ladderHeight - 20 < this.specialObsYpos) {
+        continue;
+      }
+
+      const ladXWidth = block.ladderXpos + block.ladderWidth / 2;
+
+      if (obsMidX < ladXWidth - 1 || obsMidX > ladXWidth + 1) {
+        continue;
+      }
+
+      const random = generateRandomNumber();
+
+      if (!random) continue;
+
+      return true;
     }
   }
 }
