@@ -56,6 +56,15 @@ class Mario {
     this.marioMovementAudio = new Audio("../sound/marioMovement.mp3");
   }
 
+  getCurrentWood() {
+    for (let i = 0; i < this.background.length; i++) {
+      const wood = this.background[i];
+
+      if (this.marioYpos <= wood.woodYpos + wood.woodHeight) return [wood, i];
+    }
+    return null;
+  }
+
   isClimbing() {
     return this.currentMario.src == this.marioClimbing.src;
   }
@@ -111,18 +120,19 @@ class Mario {
     this.marioHammerCollision();
 
     if (moveRight && this.isOnWood()) {
-      console.log({ pos: this.marioYpos });
       this.marioXpos += this.velocityX;
+      this.marioXpos = Math.min(CANVAS_WIDTH - this.marioWidth, this.marioXpos);
     }
     if (moveLeft && this.isOnWood()) {
       this.marioXpos -= this.velocityX;
+      this.marioXpos = Math.max(10, this.marioXpos);
     }
 
     if (climbLadder && this.isOnLadder()) {
-      this.marioYpos -= this.velocityX * 2;
+      this.marioYpos -= this.velocityX;
     }
     if (marioDown && this.isOnLadder()) {
-      this.marioYpos += this.velocityX * 2;
+      this.marioYpos += this.velocityX;
     }
 
     if (marioJump && !this.isClimbing()) {
@@ -150,20 +160,31 @@ class Mario {
     this.marioSpecialObjCollision();
     this.marioBlueObsCollision();
     this.marioFireObsCollision();
+
+    const [currWood, currWoodIndex] = this.getCurrentWood();
+
+    if (
+      this.marioXpos > currWood.woodXpos + currWood.woodWidth ||
+      this.marioXpos < currWood.woodXpos - this.marioWidth
+    ) {
+      this.marioYpos =
+        this.background[currWoodIndex + 1].woodYpos - this.marioHeight;
+    }
     this.drawMario();
     // this.marioMovementAudio.play();
   }
 
   isOnWood() {
-    for (const block of this.background) {
-      if (
-        Math.ceil(this.marioXpos) >= block.woodXpos &&
-        this.marioXpos <= block.woodXpos + block.woodWidth &&
-        Math.ceil(this.marioYpos) + this.marioHeight <= block.woodYpos
-      ) {
-        return true;
-      }
-    }
+    const [w, i] = this.getCurrentWood();
+    console.log({ wood: w, mario: this });
+    if (
+      Math.ceil(this.marioXpos) >= w.woodXpos - this.marioWidth - 5 &&
+      Math.ceil(this.marioXpos) <= w.woodXpos + w.woodWidth &&
+      Math.ceil(this.marioYpos) + this.marioHeight - 5 - (5 - i) * 2.5 <=
+        w.woodYpos
+    )
+      return true;
+
     return false;
   }
 

@@ -1,9 +1,29 @@
+level1 = true;
+level2 = false;
+
+localStorage.setItem("level1", level1);
+localStorage.setItem("level2", level2);
+
 class HerGame {
   constructor(x, y) {
+    const startY = 200;
+    const endY = 970;
+    this.gap = (endY - startY) / 5;
+
     this.ctx = canvas.getContext("2d");
     this.x = x;
     this.y = y;
-    this.backgroundBlocks = [];
+    this.backgroundBlocks = [
+      ...new Array(6).fill(0).map((_, i) => {
+        return new WoodenBlock(
+          i % 2 === 0 ? 0 : WOOD_GAP,
+          startY + i * this.gap,
+          WOOD_WIDTH,
+          WOOD_HEIGHT,
+          i % 2 === 0 ? "left" : "right"
+        );
+      }),
+    ];
     this.ladderBlocks = [];
     this.indObsBlocks = [];
     this.specialObs = [];
@@ -95,7 +115,8 @@ class HerGame {
       this.specialObs,
       this.eachWoodObstacle,
       this.level2LadderBlocks,
-      this.fireObstacle
+      this.fireObstacle,
+      this
     );
 
     this.preparation = new GamePreperation(
@@ -115,8 +136,7 @@ class HerGame {
       this.indObstacle,
       this.groupObstacle,
       this.kong,
-      this.ladderBlocks,
-      this
+      this.ladderBlocks
     );
     this.burner = new Burner(
       this.ctx,
@@ -126,7 +146,6 @@ class HerGame {
       BURNER_HEIGHT
     );
 
-    this.initWoodenBlocks();
     this.initLadderBlocks();
     this.initBlueObstacle();
     this.init2ndLevelWoodenBlocks();
