@@ -180,15 +180,17 @@ class HerGame {
         climbLadder = false;
       }
       if (e.key == "s") {
-        this.ctx.clearRect(
-          this.mario.marioXpos,
-          this.mario.marioYpos,
-          this.mario.marioWidth,
-          this.mario.marioHeight
-        );
-        marioJump = false;
-        if (!this.mario.isClimbing()) {
-          this.mario.marioYpos += 80;
+        if (gameStart) {
+          this.ctx.clearRect(
+            this.mario.marioXpos,
+            this.mario.marioYpos,
+            this.mario.marioWidth,
+            this.mario.marioHeight
+          );
+          marioJump = false;
+          if (!this.mario.isClimbing()) {
+            this.mario.marioYpos += 80;
+          }
         }
       }
       if (e.key == "x") {

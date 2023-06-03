@@ -104,11 +104,14 @@ class Mario {
       this.marioWidth,
       this.marioHeight
     );
+    if (!gameStart) return;
+
     this.frames++;
     if (this.frames > 3) this.frames = 0;
     this.marioHammerCollision();
 
     if (moveRight && this.isOnWood()) {
+      console.log({ pos: this.marioYpos });
       this.marioXpos += this.velocityX;
     }
     if (moveLeft && this.isOnWood()) {
@@ -172,7 +175,7 @@ class Mario {
           this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
           this.marioYpos + this.marioHeight <=
             block.ladderYpos + block.ladderHeight + 1 &&
-          this.marioYpos + this.marioHeight >= block.ladderYpos - 30
+          this.marioYpos + this.marioHeight >= block.ladderYpos
         ) {
           return true;
         }
@@ -186,7 +189,7 @@ class Mario {
           this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
           this.marioYpos + this.marioHeight <=
             block.ladderYpos + block.ladderHeight + 1 &&
-          this.marioYpos + this.marioHeight >= block.ladderYpos - 30
+          this.marioYpos + this.marioHeight >= block.ladderYpos
         ) {
           return true;
         }
