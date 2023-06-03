@@ -1,11 +1,10 @@
 class ObstacleInEachWood {
-  constructor(ctx, x, y, wood) {
+  constructor(ctx, x, y) {
     this.ctx = ctx;
     this.blueObsXpos = x;
     this.blueObsYpos = y;
     this.blueObsWidth = blueObsWidth;
     this.blueObsHeight = blueObsHeight;
-    this.background = wood;
     this.frames = 0;
     this.dx = 1;
 

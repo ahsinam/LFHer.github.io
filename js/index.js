@@ -6,12 +6,15 @@ class HerGame {
     this.backgroundBlocks = [];
     this.ladderBlocks = [];
     this.indObsBlocks = [];
+    this.specialObs = [];
+    this.eachWoodObstacle = [];
     this.objectTimer = null;
     this.fireObsTimer = null;
     this.signal = 0;
     this.fireSignal = 0;
     this.Level2BackgroundBlocks = [];
     this.level2LadderBlocks = [];
+    this.lvl2WoodObstacle = [];
     this.background = new WoodenBlock(
       0,
       CANVAS_HEIGHT - WOOD_HEIGHT,
@@ -60,7 +63,6 @@ class HerGame {
         this.backgroundBlocks
       ),
     ];
-    this.specialObs = [];
 
     this.specialObstacle = new SpecialObstacle(
       this.ctx,
@@ -68,8 +70,8 @@ class HerGame {
       indObsYpos,
       indObsWidth,
       indObsHeight,
-      this.ladderBlocks,
-      this.backgroundBlocks
+      this.backgroundBlocks,
+      this.ladderBlocks
     );
 
     this.powerUpHammer = new HammerPowerUp(
@@ -79,8 +81,6 @@ class HerGame {
       hammerWidth,
       hammerHeight
     );
-
-    this.eachWoodObstacle = [];
 
     this.mario = new Mario(
       this.ctx,
@@ -94,7 +94,8 @@ class HerGame {
       this.powerUpHammer,
       this.specialObs,
       this.eachWoodObstacle,
-      this.level2LadderBlocks
+      this.level2LadderBlocks,
+      this.fireObstacle
     );
 
     this.preparation = new GamePreperation(
@@ -130,6 +131,7 @@ class HerGame {
     this.initBlueObstacle();
     this.init2ndLevelWoodenBlocks();
     this.init2ndLevelLadderBlocks();
+    this.init2ndLevelBlueObstacle();
 
     addEventListener("keydown", (e) => {
       if (e.key == "d") {
@@ -152,8 +154,11 @@ class HerGame {
       }
       if (e.key == "s") {
         if (gameStart && !gameEnd) {
-          marioJump = true;
-          this.mario.moveMario();
+          console.log({ climbLadder });
+          if (!this.mario.isClimbing()) {
+            marioJump = true;
+            this.mario.moveMario();
+          }
         }
       }
       if (e.key == "x") {
@@ -182,7 +187,9 @@ class HerGame {
           this.mario.marioHeight
         );
         marioJump = false;
-        this.mario.marioYpos += 80;
+        if (!this.mario.isClimbing()) {
+          this.mario.marioYpos += 80;
+        }
       }
       if (e.key == "x") {
         marioDown = false;
@@ -251,12 +258,7 @@ class HerGame {
       const xpos = generateRandomXpos(currentBlock.woodXpos);
       const ypos = currentBlock.woodYpos - blueObsHeight;
 
-      const blueObstacleData = new ObstacleInEachWood(
-        this.ctx,
-        xpos,
-        ypos,
-        this.backgroundBlocks
-      );
+      const blueObstacleData = new ObstacleInEachWood(this.ctx, xpos, ypos);
       this.eachWoodObstacle.push(blueObstacleData);
     }
   }
@@ -279,6 +281,19 @@ class HerGame {
       this.level2LadderBlocks.push(level2Ladder);
     }
   }
+
+  init2ndLevelBlueObstacle() {
+    for (let i = 0; i < this.Level2BackgroundBlocks.length - 1; i++) {
+      const recentblock = this.Level2BackgroundBlocks[i];
+      const xpos = generateRandomXpos(recentblock.woodXpos);
+      const ypos = recentblock.woodYpos - blueObsHeight;
+
+      const lvl2BlueObstacle = new ObstacleInEachWood(this.ctx, xpos, ypos);
+
+      this.lvl2WoodObstacle.push(lvl2BlueObstacle);
+    }
+  }
+
   reset() {
     if (this.fireObsTimer) clearInterval(this.fireObsTimer);
     if (this.objectTimer) clearInterval(this.objectTimer);
@@ -335,8 +350,8 @@ class HerGame {
                     indObsYpos,
                     indObsWidth,
                     indObsHeight,
-                    this.ladderBlocks,
-                    this.backgroundBlocks
+                    this.backgroundBlocks,
+                    this.ladderBlocks
                   )
                 );
               }
@@ -413,6 +428,9 @@ class HerGame {
           }
           for (const data of this.level2LadderBlocks) {
             data.drawLadder();
+          }
+          for (let lvl2BlueObs of this.lvl2WoodObstacle) {
+            lvl2BlueObs.moveWoodObstacle();
           }
           this.mario.drawMario();
           this.burner.drawBurner();

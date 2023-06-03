@@ -11,7 +11,8 @@ class Mario {
     hammer,
     specialObstacle,
     eachWoodObstalce,
-    lvl2Ladder
+    lvl2Ladder,
+    fireObstacle
   ) {
     this.ctx = ctx;
     this.originalPosition = [x, y];
@@ -20,7 +21,7 @@ class Mario {
     this.marioHeight = height;
     this.marioWidth = width;
     this.frames = 0;
-    this.velocityX = 10;
+    this.velocityX = 15;
     this.ladder = ladder;
     this.background = wood;
     this.individualObstacle = individualObstacle;
@@ -28,6 +29,9 @@ class Mario {
     this.specialObstacle = specialObstacle;
     this.eachWoodObstalce = eachWoodObstalce;
     this.lvl2ladder = lvl2Ladder;
+    this.fireObstacle = fireObstacle;
+
+    this.direction = null;
 
     this.powerUpMode = false;
     this.powerUpTimer = null;
@@ -52,14 +56,24 @@ class Mario {
     this.marioMovementAudio = new Audio("../sound/marioMovement.mp3");
   }
 
+  isClimbing() {
+    return this.currentMario.src == this.marioClimbing.src;
+  }
+  getDirection() {
+    return this.direction;
+  }
+
   drawMario() {
     if (moveLeft) {
+      this.direction = "left";
       this.currentMario = this.marioRunningLeft;
     }
     if (climbLadder) {
+      this.direction = "updown";
       this.currentMario = this.marioClimbing;
     }
     if (moveRight) {
+      this.direction = "right";
       this.currentMario = this.marioMovingRight;
     }
     if (this.powerUpMode) {
@@ -68,18 +82,19 @@ class Mario {
 
     this.ctx.drawImage(
       this.currentMario,
-      this.powerUpMode ? 60 * this.frames : 44 * this.frames,
+      this.powerUpMode ? 60 * this.frames : 42 * this.frames,
       0,
-      this.powerUpMode ? 60 : 44,
+      this.powerUpMode ? 60 : 42,
       this.powerUpMode ? 70 : 50,
       this.marioXpos,
       this.marioYpos,
       this.marioWidth,
       this.marioHeight
     );
-    this.marioObstacleCollision();
-    this.marioSpecialObjCollision();
-    this.marioBlueObsCollision();
+    // this.marioObstacleCollision();
+    // this.marioSpecialObjCollision();
+    // this.marioBlueObsCollision();
+    // this.marioFireObsCollision();
   }
 
   moveMario() {
@@ -107,9 +122,17 @@ class Mario {
       this.marioYpos += this.velocityX * 2;
     }
 
-    if (marioJump && this.isOnWood()) {
+    if (marioJump && !this.isClimbing()) {
       this.marioYpos -= 80;
-      this.marioXpos += 100;
+      console.log({ direction: this.getDirection() });
+      if (this.getDirection() == "left") {
+        this.marioXpos -= 100;
+        this.marioXpos = Math.max(0, this.marioXpos);
+      } else if (this.getDirection() == "right") {
+        this.marioXpos += 100;
+        this.marioXpos = Math.min(CANVAS_WIDTH - marioWidth, this.marioXpos);
+      }
+      // this.marioXpos += 100;
       this.marioJump = true;
     }
 
@@ -120,7 +143,10 @@ class Mario {
       localStorage.setItem("level1", level1);
       localStorage.setItem("level2", level2);
     }
-
+    this.marioObstacleCollision();
+    this.marioSpecialObjCollision();
+    this.marioBlueObsCollision();
+    this.marioFireObsCollision();
     this.drawMario();
     // this.marioMovementAudio.play();
   }
@@ -330,6 +356,33 @@ class Mario {
         const indexOfObstacle = this.eachWoodObstalce.indexOf(block);
         if (indexOfObstacle !== -1) {
           this.eachWoodObstalce.splice(indexOfObstacle, 1);
+          score++;
+        }
+      }
+    }
+  }
+
+  marioFireObsCollision() {
+    for (const block of this.fireObstacle) {
+      if (
+        this.marioXpos < block.fireObsXpos + block.fireObsWidth &&
+        this.marioXpos + this.marioWidth > block.fireObsXpos &&
+        this.marioYpos < block.fireObsYpos + block.fireObsHeight &&
+        this.marioYpos + this.marioHeight > block.fireObsYpos &&
+        !this.powerUpMode
+      ) {
+        console.log("collision with fire");
+      }
+      if (
+        this.marioXpos < block.fireObsXpos + block.fireObsWidth &&
+        this.marioXpos + this.marioWidth > block.fireObsXpos &&
+        this.marioYpos < block.fireObsYpos + block.fireObsHeight &&
+        this.marioYpos + this.marioHeight > block.fireObsYpos &&
+        this.powerUpMode
+      ) {
+        const indexOfFireObs = this.fireObstacle.indexOf(block);
+        if (indexOfFireObs !== 1) {
+          this.fireObstacle.splice(indexOfFireObs, 1);
           score++;
         }
       }

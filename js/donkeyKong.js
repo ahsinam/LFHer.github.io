@@ -7,8 +7,10 @@ class DonkeyKong {
     this.kongHeight = height;
 
     this.kongImage = new Image();
-    this.kongImage.src = "../Images/kong/kongMovementLeft.png";
+    this.kongImage.src = "../Images/kong/kongMovement.png";
     this.frames = 0;
+
+    setInterval(() => this.changeFrame(), 1600);
   }
 
   drawKong() {
@@ -16,8 +18,8 @@ class DonkeyKong {
       this.kongImage,
       100 * this.frames,
       0,
-      90,
       100,
+      90,
       this.kongXpos,
       this.kongYpos,
       this.kongWidth,
@@ -25,16 +27,20 @@ class DonkeyKong {
     );
   }
 
-  moveKong() {
-    console.log(this.frames);
-    this.ctx.clearRect(
-      this.kongXpos,
-      this.kongYpos,
-      this.kongWidth,
-      this.kongHeight
-    );
+  // moveKong() {
+  //   this.ctx.clearRect(
+  //     this.kongXpos,
+  //     this.kongYpos,
+  //     this.kongWidth,
+  //     this.kongHeight
+  //   );
+  //   this.frames++;
+  //   if (this.frames > 1) this.frames = 0;
+  //   this.drawKong();
+  // }
+
+  changeFrame() {
     this.frames++;
-    if (this.frames > 2) this.frames = 0;
-    this.drawKong();
+    if (this.frames > 1) this.frames = 0;
   }
 }

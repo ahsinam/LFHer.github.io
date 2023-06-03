@@ -44,6 +44,7 @@ class SpecialObstacle {
       const random = generateRandomNumber();
       if (random) {
         //Falls through the ladder
+
         this.specialObsYpos += 120;
         this.wayPointIndex += 2;
       } else {
@@ -82,17 +83,20 @@ class SpecialObstacle {
   }
 
   collisionWithLadder() {
-    const ladderTopY = this.ladder.ladderYpos;
-    const specialObsBottomY = this.specialObsYpos + this.specialObsHeight;
-    const distance = Math.abs(ladderTopY - specialObsBottomY);
-
-    const alongXaxis =
-      this.specialObsXpos >= this.ladder.ladderXpos &&
-      this.specialObsXpos <= this.ladder.ladderXpos + this.ladder.ladderWidth;
-
-    const collisionResult = distance <= this.wood.woodWidth && alongXaxis;
-
-    return collisionResult;
+    for (const block in this.ladder) {
+      const objectRect = {
+        x: this.specialObsXpos,
+        y: this.specialObsYpos,
+        width: this.specialObsWidth,
+        heght: this.specialObsHeight,
+      };
+      if (
+        objectRect.x < block.x + block.ladderWidth &&
+        objectRect.x + objectRect.width > block.ladderXpos &&
+        objectRect.y
+      ) {
+      }
+    }
   }
 }
 

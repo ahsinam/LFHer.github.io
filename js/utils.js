@@ -1,5 +1,5 @@
 const calculateLadderPos = (currentWoodenBlock, nextWoodenBlock) => {
-  const ladderStartY = currentWoodenBlock.woodYpos + WOOD_HEIGHT;
+  const ladderStartY = currentWoodenBlock.woodYpos + WOOD_HEIGHT / 2;
   const ladderEndY = nextWoodenBlock.woodYpos;
 
   return { ladderStartY, ladderEndY };
@@ -34,5 +34,3 @@ const generateRandomXpos = (minXvalue) => {
 
   return xValue;
 };
-
-

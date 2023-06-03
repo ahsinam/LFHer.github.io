@@ -8,6 +8,13 @@ canvas.height = CANVAS_HEIGHT;
 let gameStart = false;
 let gameEnd = false;
 
+//Mario Movement
+let moveRight = false;
+let moveLeft = false;
+let climbLadder = false;
+let marioJump = false;
+let marioDown = false;
+
 //Wooden Block
 const WOOD_HEIGHT = 30;
 const WOOD_GAP = 150;
@@ -16,7 +23,7 @@ const WOOD_WIDTH = CANVAS_WIDTH - WOOD_GAP;
 //Ladder
 const LADDER_WIDTH = 40;
 const ADD_HEIGHT = 20;
-let ladderHeight = 120;
+let ladderHeight = 130;
 
 //ladder position
 const ladderMinXpos = 170;
@@ -34,16 +41,9 @@ const topLadderHeight = 200;
 
 //Mario starting Position
 const marioStartingXpos = 170;
-const marioStartingYpos = 910;
+const marioStartingYpos = 900;
 const marioWidth = 60;
-const marioHeight = 60;
-
-//Mario Movement
-let moveRight = false;
-let moveLeft = false;
-let climbLadder = false;
-let marioJump = false;
-let marioDown = false;
+const marioHeight = 70;
 
 //Kong
 let kongXpos = 40;
