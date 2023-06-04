@@ -7,9 +7,9 @@ class SpecialObstacle {
     this.specialObsHeight = height;
     this.wood = wood;
     this.ladder = ladder;
+
     this.falling = false;
     this.currWoodIndex = 0;
-
     this.frames = 0;
     this.signal = 0;
     this.TIMER = null;
@@ -126,18 +126,3 @@ class SpecialObstacle {
     }
   }
 }
-
-// const wayPoint = wayPoints[this.wayPointIndex];
-// let yDistance = wayPoint.y - this.specialObsYpos;
-// let xDistance = wayPoint.x - this.specialObsXpos;
-// let angle = Math.atan2(yDistance, xDistance);
-// this.specialObsXpos += Math.cos(angle);
-// this.specialObsYpos += Math.sin(angle);
-
-// if (
-//   Math.round(this.specialObsXpos) == Math.round(wayPoint.x) &&
-//   Math.round(this.specialObsYpos) == Math.round(wayPoint.y) &&
-//   this.wayPointIndex < wayPoints.length - 1
-// ) {
-//   this.wayPointIndex++;
-// }

@@ -34,3 +34,11 @@ const generateRandomXpos = (minXvalue) => {
 
   return xValue;
 };
+
+const generateObstacleXpos = (minXvalue, maxXvalue) => {
+  const xValue = Math.round(
+    Math.random() * (maxXvalue - minXvalue) + minXvalue
+  );
+
+  return xValue;
+};

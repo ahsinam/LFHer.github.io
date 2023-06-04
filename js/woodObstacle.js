@@ -1,8 +1,9 @@
 class ObstacleInEachWood {
-  constructor(ctx, x, y) {
+  constructor(ctx, x, y, wood) {
     this.ctx = ctx;
     this.blueObsXpos = x;
     this.blueObsYpos = y;
+    this.wood = wood;
     this.blueObsWidth = blueObsWidth;
     this.blueObsHeight = blueObsHeight;
     this.frames = 0;
@@ -37,6 +38,31 @@ class ObstacleInEachWood {
       this.dx = 1;
     }
     this.blueObsXpos += this.dx;
+  }
+
+  moveLvl1Obstacle() {
+    this.drawWoodObstacle();
+    for (let i = 0; i < this.wood.length - 1; i++) {
+      let block = this.wood[i];
+      if (
+        this.blueObsXpos >= block.woodXpos &&
+        this.blueObsXpos + this.blueObsWidth + this.dx <=
+          block.woodXpos + block.woodWidth &&
+        this.blueObsYpos + this.blueObsHeight == block.woodYpos
+      ) {
+        if (this.blueObsXpos + this.dx <= block.woodXpos) {
+          this.dx = 1;
+        }
+        if (
+          this.blueObsXpos + this.blueObsWidth + this.dx >=
+          block.woodXpos + block.woodWidth
+        ) {
+          this.dx = -1;
+        }
+        console.log(this.dx);
+        this.blueObsXpos += this.dx;
+      }
+    }
   }
 
   changeFrame() {

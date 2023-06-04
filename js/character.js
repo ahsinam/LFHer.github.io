@@ -11,7 +11,6 @@ class Mario {
     hammer,
     specialObstacle,
     eachWoodObstalce,
-    lvl2Ladder,
     fireObstacle
   ) {
     this.ctx = ctx;
@@ -20,19 +19,18 @@ class Mario {
     this.marioYpos = y;
     this.marioHeight = height;
     this.marioWidth = width;
-    this.frames = 0;
-    this.velocityX = 15;
+
     this.ladder = ladder;
     this.background = wood;
     this.individualObstacle = individualObstacle;
     this.hammer = hammer;
     this.specialObstacle = specialObstacle;
     this.eachWoodObstalce = eachWoodObstalce;
-    this.lvl2ladder = lvl2Ladder;
     this.fireObstacle = fireObstacle;
 
+    this.frames = 0;
+    this.velocityX = 15;
     this.direction = null;
-
     this.powerUpMode = false;
     this.powerUpTimer = null;
 
@@ -117,7 +115,6 @@ class Mario {
 
     this.frames++;
     if (this.frames > 3) this.frames = 0;
-    this.marioHammerCollision();
 
     if (moveRight && this.isOnWood()) {
       this.marioXpos += this.velocityX;
@@ -156,10 +153,14 @@ class Mario {
       localStorage.setItem("level1", level1);
       localStorage.setItem("level2", level2);
     }
-    this.marioObstacleCollision();
-    this.marioSpecialObjCollision();
+
+    if (level2 && !level1) {
+      this.marioObstacleCollision();
+      this.marioSpecialObjCollision();
+      this.marioFireObsCollision();
+      this.marioHammerCollision();
+    }
     this.marioBlueObsCollision();
-    this.marioFireObsCollision();
 
     const [currWood, currWoodIndex] = this.getCurrentWood();
 
@@ -167,6 +168,7 @@ class Mario {
       this.marioXpos > currWood.woodXpos + currWood.woodWidth ||
       this.marioXpos < currWood.woodXpos - this.marioWidth
     ) {
+      console.log(this.marioYpos);
       this.marioYpos =
         this.background[currWoodIndex + 1].woodYpos - this.marioHeight;
     }
@@ -176,7 +178,7 @@ class Mario {
 
   isOnWood() {
     const [w, i] = this.getCurrentWood();
-    console.log({ wood: w, mario: this });
+
     if (
       Math.ceil(this.marioXpos) >= w.woodXpos - this.marioWidth - 5 &&
       Math.ceil(this.marioXpos) <= w.woodXpos + w.woodWidth &&
@@ -189,34 +191,33 @@ class Mario {
   }
 
   isOnLadder() {
-    if (level1 && !level2) {
-      for (const block of this.ladder) {
-        if (
-          this.marioXpos + this.marioWidth >= block.ladderXpos &&
-          this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
-          this.marioYpos + this.marioHeight <=
-            block.ladderYpos + block.ladderHeight + 1 &&
-          this.marioYpos + this.marioHeight >= block.ladderYpos
-        ) {
-          return true;
-        }
-      }
-      return false;
-    }
-    if (!level1 && level2) {
-      for (const block of this.lvl2ladder) {
-        if (
-          this.marioXpos + this.marioWidth >= block.ladderXpos &&
-          this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
-          this.marioYpos + this.marioHeight <=
-            block.ladderYpos + block.ladderHeight + 1 &&
-          this.marioYpos + this.marioHeight >= block.ladderYpos
-        ) {
-          return true;
-        }
+    for (const block of this.ladder) {
+      if (
+        this.marioXpos + this.marioWidth >= block.ladderXpos &&
+        this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
+        this.marioYpos + this.marioHeight <=
+          block.ladderYpos + block.ladderHeight + 1 &&
+        this.marioYpos + this.marioHeight >= block.ladderYpos
+      ) {
+        return true;
       }
     }
     return false;
+
+    // if (!level1 && level2) {
+    //   for (const block of this.lvl1ladder) {
+    //     if (
+    //       this.marioXpos + this.marioWidth >= block.ladderXpos &&
+    //       this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
+    //       this.marioYpos + this.marioHeight <=
+    //         block.ladderYpos + block.ladderHeight + 1 &&
+    //       this.marioYpos + this.marioHeight >= block.ladderYpos
+    //     ) {
+    //       return true;
+    //     }
+    //   }
+    // }
+    // return false;
   }
 
   marioObstacleCollision() {
@@ -368,7 +369,7 @@ class Mario {
         marioRect.y + marioRect.height > objectRect.y &&
         !this.powerUpMode
       ) {
-        // console.log("collisioon");
+        gameEnd = true;
       }
       if (
         marioRect.x < objectRect.x + objectRect.width &&

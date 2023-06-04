@@ -49,7 +49,9 @@ class GamePreperation {
       individualBlock.drawLadder();
     }
     this.mario.drawMario();
-    this.obstacle.drawGroupObs();
+    if (level2) {
+      this.obstacle.drawGroupObs();
+    }
     // this.kong.drawKong();
     this.drawStartButton();
   }
@@ -75,8 +77,8 @@ class GamePreperation {
     this.ctx.fillText(score, 120, 40);
   }
 
-  timeBoard(){
+  timeBoard() {
     this.ctx.font = "bold 24px Verdana";
-     this.ctx.fillStyle = "black";
+    this.ctx.fillStyle = "black";
   }
 }

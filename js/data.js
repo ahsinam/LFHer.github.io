@@ -1,4 +1,4 @@
-const Lvl2WoodenBlock = [
+const lvl1WoodenBlocks = [
   { x: 100, y: 200, width: 800 },
   { x: 0, y: 400, width: 400 },
   { x: 550, y: 400, width: 450 },
@@ -9,7 +9,7 @@ const Lvl2WoodenBlock = [
   { x: 0, y: 970, width: 1000 },
 ];
 
-const lvl2LadderBlockData = [
+const lvl1LadderBlockData = [
   { x: 250, y: 210 },
   { x: 640, y: 210 },
   { x: 120, y: 410 },
