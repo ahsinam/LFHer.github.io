@@ -141,6 +141,14 @@ class HerGame {
       this.ladderBlocks
     );
 
+    this.princess = new Princess(
+      this.ctx,
+      princessXpos,
+      princessYpos,
+      princessWidth,
+      princessHeight
+    );
+
     this.initLadderBlocks();
     this.initBlueObstacle();
 
@@ -275,6 +283,7 @@ class HerGame {
     if (gameStart == true) {
       if (gameEnd == false) {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         this.preparation.scoreBoard();
         if (this.objectTimer) {
           clearInterval(this.objectTimer);
@@ -379,6 +388,7 @@ class HerGame {
         this.kong.drawKong();
         this.groupObstacle.drawGroupObs();
         this.fire.drawFire();
+        this.princess.drawPrincess();
       }
       if (gameEnd == true) {
         if (score > highScore) {

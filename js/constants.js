@@ -95,6 +95,12 @@ const burnerYpos = 300;
 const BURNER_WIDTH = 150;
 const BURNER_HEIGHT = 150;
 
+//Princess
+const princessXpos = 450;
+const princessYpos = 0;
+const princessWidth = 40;
+const princessHeight = 100;
+
 var level1 = +localStorage.getItem("level1") || true;
 var level2 = +localStorage.getItem("level2") || false;
 // var level1 = +localStorage.getItem("level1") || false;
