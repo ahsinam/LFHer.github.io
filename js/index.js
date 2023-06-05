@@ -1,7 +1,7 @@
-level1 = true;
-level2 = false;
-// level1 = false;
-// level2 = true;
+// level1 = true;
+// level2 = false;
+level1 = false;
+level2 = true;
 
 localStorage.setItem("level1", level1);
 localStorage.setItem("level2", level2);

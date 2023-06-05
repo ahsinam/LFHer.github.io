@@ -163,18 +163,25 @@ class Mario {
     this.marioBlueObsCollision();
 
     const [currWood, currWoodIndex] = this.getCurrentWood();
-    console.log("this.background", this.background);
-    console.log("wood", currWood);
-    console.log("index", currWoodIndex);
+
     // console.log(currWood);
-    if (
-      this.marioXpos > currWood.woodXpos + currWood.woodWidth ||
-      this.marioXpos < currWood.woodXpos - this.marioWidth
-    ) {
-      console.log("currentWoodIndwx+ 1", this.background[currWoodIndex]);
-      this.marioYpos =
-        this.background[currWoodIndex + 1].woodYpos - this.marioHeight;
+
+    if (level2) {
+      if (
+        this.marioXpos > currWood.woodXpos + currWood.woodWidth ||
+        this.marioXpos < currWood.woodXpos - this.marioWidth
+      ) {
+        this.marioYpos =
+          this.background[currWoodIndex + 1].woodYpos - this.marioHeight;
+      }
     }
+    // if (
+    //   this.marioXpos > currWood.woodXpos + currWood.woodWidth ||
+    //   this.marioXpos < currWood.woodXpos - this.marioWidth
+    // ) {
+    //   this.marioYpos =
+    //     this.background[currWoodIndex + 1].woodYpos - this.marioHeight;
+    // }
     this.drawMario();
     // this.marioMovementAudio.play();
   }
