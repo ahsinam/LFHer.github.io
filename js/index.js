@@ -377,10 +377,6 @@ class HerGame {
             obstacle.updateIndObstacle();
           }
 
-          for (let spclObs of this.specialObs) {
-            spclObs.moveSpecialObstacle();
-          }
-
           for (let blueObs of this.eachWoodObstacle) {
             blueObs.moveWoodObstacle();
           }
@@ -440,6 +436,7 @@ class HerGame {
             clearInterval(this.fireObsTimer);
           }
           // Fire Obstacle
+          console.log(this.fireObstacle);
           for (const fireObs of this.fireObstacle) {
             fireObs.moveFireObstacle();
           }
@@ -450,15 +447,18 @@ class HerGame {
               this.fireSignal = 0;
               this.fireObstacle.push(
                 new FireObstacle(
-                  (this.ctx,
+                  this.ctx,
                   fireObsXpos,
                   fireObsYpos,
                   fireObsWidth,
-                  fireObsHeight)
+                  fireObsHeight,
+                  this.ladderBlocks,
+                  this.backgroundBlocks
                 )
               );
             }
-          }, 300);
+          }, 1);
+
           //Draw Background
           for (const block of this.backgroundBlocks) {
             block.drawWoodenBlock();
@@ -466,6 +466,10 @@ class HerGame {
           //Draw Ladder
           for (const individualBlock of this.ladderBlocks) {
             individualBlock.drawLadder();
+          }
+
+          for (let spclObs of this.specialObs) {
+            spclObs.moveSpecialObstacle();
           }
 
           //PowerUP Hammer

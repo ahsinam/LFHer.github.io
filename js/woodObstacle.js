@@ -18,10 +18,10 @@ class ObstacleInEachWood {
   drawWoodObstacle() {
     this.ctx.drawImage(
       this.blueObsImage,
-      83 * this.frames,
+      62.75 * this.frames,
       0,
-      83,
-      70,
+      62.75,
+      68,
       this.blueObsXpos,
       this.blueObsYpos,
       this.blueObsWidth,

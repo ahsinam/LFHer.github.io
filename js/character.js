@@ -100,10 +100,6 @@ class Mario {
       this.marioWidth,
       this.marioHeight
     );
-    // this.marioObstacleCollision();
-    // this.marioSpecialObjCollision();
-    // this.marioBlueObsCollision();
-    // this.marioFireObsCollision();
   }
 
   moveMario() {
@@ -172,7 +168,7 @@ class Mario {
 
   isOnWood() {
     const [w, i] = this.getCurrentWood();
-    console.log({ wood: w, mario: this });
+
     if (
       Math.ceil(this.marioXpos) >= w.woodXpos - this.marioWidth - 5 &&
       Math.ceil(this.marioXpos) <= w.woodXpos + w.woodWidth &&
@@ -188,7 +184,7 @@ class Mario {
     if (level1 && !level0) {
       for (const block of this.ladder) {
         if (
-          this.marioXpos + this.marioWidth >= block.ladderXpos &&
+          this.marioXpos + this.marioWidth / 2 >= block.ladderXpos &&
           this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
           this.marioYpos + this.marioHeight <=
             block.ladderYpos + block.ladderHeight + 1 &&
