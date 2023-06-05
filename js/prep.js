@@ -49,7 +49,7 @@ class GamePreperation {
       individualBlock.drawLadder();
     }
     this.mario.drawMario();
-    if (level2) {
+    if (level1) {
       this.obstacle.drawGroupObs();
     }
     // this.kong.drawKong();

@@ -7,9 +7,9 @@ class SpecialObstacle {
     this.specialObsHeight = height;
     this.wood = wood;
     this.ladder = ladder;
-
     this.falling = false;
     this.currWoodIndex = 0;
+
     this.frames = 0;
     this.signal = 0;
     this.TIMER = null;
@@ -79,16 +79,19 @@ class SpecialObstacle {
       this.wayPointIndex < wayPoints.length - 1
     ) {
       this.wayPointIndex++;
+      if (!(this.wayPointIndex % 2)) {
+        this.currWoodIndex += 1;
+      }
     }
   }
 
   clearObstacle() {
-    this.ctx.clearRect(
-      this.specialObsXpos,
-      this.specialObsYpos,
-      this.specialObsWidth,
-      this.specialObsHeight
-    );
+    // this.ctx.clearRect(
+    //   this.specialObsXpos,
+    //   this.specialObsYpos,
+    //   this.specialObsWidth,
+    //   this.specialObsHeight
+    // );
   }
 
   changeFrame() {

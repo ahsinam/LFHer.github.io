@@ -102,9 +102,9 @@ const princessWidth = 40;
 const princessHeight = 100;
 
 var level1 = +localStorage.getItem("level1") || true;
-var level2 = +localStorage.getItem("level2") || false;
+var level0 = +localStorage.getItem("level0") || false;
 // var level1 = +localStorage.getItem("level1") || false;
-// var level2 = +localStorage.getItem("level2") || true;
+// var level0 = +localStorage.getItem("level0") || true;
 
 //Score
 let score = 0;

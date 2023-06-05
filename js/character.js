@@ -11,6 +11,7 @@ class Mario {
     hammer,
     specialObstacle,
     eachWoodObstalce,
+    lvl2Ladder,
     fireObstacle
   ) {
     this.ctx = ctx;
@@ -19,18 +20,19 @@ class Mario {
     this.marioYpos = y;
     this.marioHeight = height;
     this.marioWidth = width;
-
+    this.frames = 0;
+    this.velocityX = 15;
     this.ladder = ladder;
     this.background = wood;
     this.individualObstacle = individualObstacle;
     this.hammer = hammer;
     this.specialObstacle = specialObstacle;
     this.eachWoodObstalce = eachWoodObstalce;
+    this.lvl2ladder = lvl2Ladder;
     this.fireObstacle = fireObstacle;
 
-    this.frames = 0;
-    this.velocityX = 15;
     this.direction = null;
+
     this.powerUpMode = false;
     this.powerUpTimer = null;
 
@@ -115,8 +117,7 @@ class Mario {
 
     this.frames++;
     if (this.frames > 3) this.frames = 0;
-
-    const [currWood, currWoodIndex] = this.getCurrentWood();
+    this.marioHammerCollision();
 
     if (moveRight && this.isOnWood()) {
       this.marioXpos += this.velocityX;
@@ -136,7 +137,7 @@ class Mario {
 
     if (marioJump && !this.isClimbing()) {
       this.marioYpos -= 80;
-
+      console.log({ direction: this.getDirection() });
       if (this.getDirection() == "left") {
         this.marioXpos -= 100;
         this.marioXpos = Math.max(0, this.marioXpos);
@@ -144,47 +145,34 @@ class Mario {
         this.marioXpos += 100;
         this.marioXpos = Math.min(CANVAS_WIDTH - marioWidth, this.marioXpos);
       }
-
       // this.marioXpos += 100;
       this.marioJump = true;
     }
 
     if (this.marioYpos < 100) {
       level1 = false;
-      level2 = true;
+      level0 = true;
 
       localStorage.setItem("level1", level1);
-      localStorage.setItem("level2", level2);
+      localStorage.setItem("level0", level0);
     }
 
-    if (level2 && !level1) {
-      this.marioObstacleCollision();
-      this.marioSpecialObjCollision();
-      this.marioFireObsCollision();
-      this.marioHammerCollision();
-    }
-    this.marioBlueObsCollision();
+    const [currWood, currWoodIndex] = this.getCurrentWood();
 
-    if (level2) {
-      if (
-        this.marioXpos > currWood.woodXpos + currWood.woodWidth ||
-        this.marioXpos < currWood.woodXpos - this.marioWidth
-      ) {
-        this.marioYpos =
-          this.background[currWoodIndex + 1].woodYpos - this.marioHeight;
-      }
+    if (
+      this.marioXpos > currWood.woodXpos + currWood.woodWidth ||
+      this.marioXpos < currWood.woodXpos - this.marioWidth
+    ) {
+      this.marioYpos =
+        this.background[currWoodIndex + 1].woodYpos - this.marioHeight;
     }
-
-    if (level1) {
-    }
-
     this.drawMario();
     // this.marioMovementAudio.play();
   }
 
   isOnWood() {
     const [w, i] = this.getCurrentWood();
-
+    console.log({ wood: w, mario: this });
     if (
       Math.ceil(this.marioXpos) >= w.woodXpos - this.marioWidth - 5 &&
       Math.ceil(this.marioXpos) <= w.woodXpos + w.woodWidth &&
@@ -197,33 +185,34 @@ class Mario {
   }
 
   isOnLadder() {
-    for (const block of this.ladder) {
-      if (
-        this.marioXpos + this.marioWidth / 2 >= block.ladderXpos &&
-        this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
-        this.marioYpos + this.marioHeight <=
-          block.ladderYpos + block.ladderHeight + 1 &&
-        this.marioYpos + this.marioHeight >= block.ladderYpos
-      ) {
-        return true;
+    if (level1 && !level0) {
+      for (const block of this.ladder) {
+        if (
+          this.marioXpos + this.marioWidth >= block.ladderXpos &&
+          this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
+          this.marioYpos + this.marioHeight <=
+            block.ladderYpos + block.ladderHeight + 1 &&
+          this.marioYpos + this.marioHeight >= block.ladderYpos
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+    if (!level1 && level0) {
+      for (const block of this.lvl2ladder) {
+        if (
+          this.marioXpos + this.marioWidth >= block.ladderXpos &&
+          this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
+          this.marioYpos + this.marioHeight <=
+            block.ladderYpos + block.ladderHeight + 1 &&
+          this.marioYpos + this.marioHeight >= block.ladderYpos
+        ) {
+          return true;
+        }
       }
     }
     return false;
-
-    // if (!level1 && level2) {
-    //   for (const block of this.lvl1ladder) {
-    //     if (
-    //       this.marioXpos + this.marioWidth >= block.ladderXpos &&
-    //       this.marioXpos <= block.ladderXpos + LADDER_WIDTH &&
-    //       this.marioYpos + this.marioHeight <=
-    //         block.ladderYpos + block.ladderHeight + 1 &&
-    //       this.marioYpos + this.marioHeight >= block.ladderYpos
-    //     ) {
-    //       return true;
-    //     }
-    //   }
-    // }
-    // return false;
   }
 
   marioObstacleCollision() {
@@ -316,7 +305,7 @@ class Mario {
     this.marioHeight = this.marioHeight;
     this.marioWidth = this.marioWidth;
     this.frames = 0;
-    this.velocityX = 5;
+    this.velocityX = 15;
     this.ladder = this.ladder;
     this.background = this.background;
     this.individualObstacle = this.individualObstacle;

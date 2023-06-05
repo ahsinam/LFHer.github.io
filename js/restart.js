@@ -39,7 +39,7 @@ class RestartGame {
           gameEnd = false;
           gameStart = false;
           this.mario.resetMario();
-          hergame.reset();
+          herGame.reset();
           this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
       }
