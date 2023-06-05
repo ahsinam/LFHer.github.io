@@ -1,5 +1,5 @@
 class WoodenBlock {
-  constructor(x, y, width, height, side) {
+  constructor(x, y, width, height, side = null) {
     this.ctx = canvas.getContext("2d");
     this.woodXpos = x;
     this.woodYpos = y;

@@ -116,6 +116,8 @@ class HerGame {
       this.specialObs,
       this.eachWoodObstacle,
       this.fireObstacle,
+      [],
+      [],
       this
     );
 
@@ -401,7 +403,9 @@ const level1HerGame = new Level1HerGame(CANVAS_WIDTH, CANVAS_HEIGHT);
 const herGame = new HerGame(CANVAS_WIDTH, CANVAS_HEIGHT);
 
 if (level1 && !level2) {
+  console.log("level 1 initiated");
   level1HerGame.init();
 } else if (!level1 && level2) {
+  console.log("level2 initiated");
   herGame.init();
 }

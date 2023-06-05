@@ -8,7 +8,7 @@ class Burner {
     this.frames = 0;
 
     this.burnerImage = new Image();
-    this.burnerImage.src = "../Images/fire/burningFire.png";
+    this.burnerImage.src = "../Images/fire/fireImage.png";
 
     setInterval(() => this.changeFrame(), 1000);
   }
@@ -16,10 +16,10 @@ class Burner {
   drawBurner() {
     this.ctx.drawImage(
       this.burnerImage,
-      88.3 * this.frames,
+      100 * this.frames,
       0,
-      88.3,
-      78,
+      100,
+      139,
       this.burnerXpos,
       this.burnerYpos,
       this.burnerWidth,
@@ -29,6 +29,6 @@ class Burner {
 
   changeFrame() {
     this.frames++;
-    if (this.frames > 2) this.frames = 0;
+    if (this.frames > 5) this.frames = 0;
   }
 }

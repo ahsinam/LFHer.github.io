@@ -59,7 +59,6 @@ class ObstacleInEachWood {
         ) {
           this.dx = -1;
         }
-        console.log(this.dx);
         this.blueObsXpos += this.dx;
       }
     }

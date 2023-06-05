@@ -16,10 +16,10 @@ class Fire {
   drawFire() {
     this.ctx.drawImage(
       this.fireImage,
-      120 * this.frames,
+      100 * this.frames,
       0,
-      120,
-      166,
+      100,
+      139,
       this.fireXpos,
       this.fireYpos,
       this.fireWidth,
