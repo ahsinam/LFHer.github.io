@@ -46,8 +46,7 @@ class Level1HerGame {
       "",
       [],
       this.lvl0WoodObstacle,
-      [],
-      this
+      []
     );
 
     this.preparation = new GamePreperation(
@@ -145,7 +144,7 @@ class Level1HerGame {
   }
 
   init1stLevelWoodenBlocks() {
-    for (const data of lvl0WoodenBlocks) {
+    for (const data of lvl1WoodenBlocks) {
       const level1Block = new WoodenBlock(
         data.x,
         data.y,
@@ -157,7 +156,7 @@ class Level1HerGame {
   }
 
   init1stLevelLadderBlocks() {
-    for (const data of lvl0LadderBlockData) {
+    for (const data of lvl1LadderBlockData) {
       const level1Ladder = new Ladder(data.x, data.y, 200);
       this.lvl0LadderBlocks.push(level1Ladder);
     }

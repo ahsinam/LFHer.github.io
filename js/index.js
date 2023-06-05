@@ -344,9 +344,7 @@ class HerGame {
       this.powerUpHammer,
       this.specialObs,
       this.eachWoodObstacle,
-      this.level1LadderBlocks,
-      this.fireObstacle,
-      this
+      this.fireObstacle
     );
 
     this.restart = new RestartGame(
@@ -432,7 +430,6 @@ class HerGame {
           clearInterval(this.fireObsTimer);
         }
         // Fire Obstacle
-        console.log(this.fireObstacle);
         for (const fireObs of this.fireObstacle) {
           fireObs.moveFireObstacle();
         }
