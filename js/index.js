@@ -367,137 +367,115 @@ class HerGame {
     }
     if (gameStart == true) {
       if (gameEnd == false) {
-        if (level1 & !level0) {
-          this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-          this.preparation.scoreBoard();
-          if (this.objectTimer) {
-            clearInterval(this.objectTimer);
-          }
-          for (let obstacle of this.indObstacle) {
-            obstacle.updateIndObstacle();
-          }
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.preparation.scoreBoard();
+        if (this.objectTimer) {
+          clearInterval(this.objectTimer);
+        }
+        for (let obstacle of this.indObstacle) {
+          obstacle.updateIndObstacle();
+        }
 
-          for (let blueObs of this.eachWoodObstacle) {
-            blueObs.moveWoodObstacle();
-          }
-          this.objectTimer = setInterval(() => {
-            this.signal += 1;
-            if (!(this.signal % 1000)) {
-              this.signal = 0;
-              const random = Math.round(Math.random());
-              if (random) {
-                this.indObstacle.push(
-                  new IndividualObstacle(
-                    this.ctx,
-                    indObsXpos,
-                    indObsYpos,
-                    indObsWidth,
-                    indObsHeight,
-                    this.ladderBlocks,
-                    this.backgroundBlocks
-                  )
-                );
-              } else {
-                this.specialObs.push(
-                  new SpecialObstacle(
-                    this.ctx,
-                    indObsXpos,
-                    indObsYpos,
-                    indObsWidth,
-                    indObsHeight,
-                    this.backgroundBlocks,
-                    this.ladderBlocks
-                  )
-                );
-              }
-            }
-
-            for (let block of this.indObstacle) {
-              if (
-                Math.ceil(block.indObsYpos) >= 910 &&
-                block.indObsXpos <= 150
-              ) {
-                block.clearObstacle();
-                this.indObstacle.shift();
-              }
-            }
-            for (let block of this.specialObs) {
-              if (
-                Math.ceil(block.specialObsYpos) >= 910 &&
-                block.specialObsXpos <= 150
-              ) {
-                block.clearObstacle();
-                this.specialObs.shift();
-              }
-            }
-          }, 3);
-
-          if (this.fireObsTimer) {
-            clearInterval(this.fireObsTimer);
-          }
-          // Fire Obstacle
-          console.log(this.fireObstacle);
-          for (const fireObs of this.fireObstacle) {
-            fireObs.moveFireObstacle();
-          }
-
-          this.fireObsTimer = setInterval(() => {
-            this.fireSignal += 1;
-            if (!(this.fireSignal % 1000)) {
-              this.fireSignal = 0;
-              this.fireObstacle.push(
-                new FireObstacle(
+        for (let blueObs of this.eachWoodObstacle) {
+          blueObs.moveWoodObstacle();
+        }
+        this.objectTimer = setInterval(() => {
+          this.signal += 1;
+          if (!(this.signal % 1000)) {
+            this.signal = 0;
+            const random = Math.round(Math.random());
+            if (random) {
+              this.indObstacle.push(
+                new IndividualObstacle(
                   this.ctx,
-                  fireObsXpos,
-                  fireObsYpos,
-                  fireObsWidth,
-                  fireObsHeight,
+                  indObsXpos,
+                  indObsYpos,
+                  indObsWidth,
+                  indObsHeight,
                   this.ladderBlocks,
                   this.backgroundBlocks
                 )
               );
+            } else {
+              this.specialObs.push(
+                new SpecialObstacle(
+                  this.ctx,
+                  indObsXpos,
+                  indObsYpos,
+                  indObsWidth,
+                  indObsHeight,
+                  this.backgroundBlocks,
+                  this.ladderBlocks
+                )
+              );
             }
-          }, 1);
-
-          //Draw Background
-          for (const block of this.backgroundBlocks) {
-            block.drawWoodenBlock();
-          }
-          //Draw Ladder
-          for (const individualBlock of this.ladderBlocks) {
-            individualBlock.drawLadder();
           }
 
-          for (let spclObs of this.specialObs) {
-            spclObs.moveSpecialObstacle();
+          for (let block of this.indObstacle) {
+            if (Math.ceil(block.indObsYpos) >= 910 && block.indObsXpos <= 150) {
+              block.clearObstacle();
+              this.indObstacle.shift();
+            }
           }
+          for (let block of this.specialObs) {
+            if (
+              Math.ceil(block.specialObsYpos) >= 910 &&
+              block.specialObsXpos <= 150
+            ) {
+              block.clearObstacle();
+              this.specialObs.shift();
+            }
+          }
+        }, 3);
 
-          //PowerUP Hammer
-          this.powerUpHammer.drawHammer();
-
-          //Draw character and obstacle
-          this.mario.drawMario();
-          this.kong.drawKong();
-          this.groupObstacle.drawGroupObs();
-          this.fire.drawFire();
-        } else {
-          this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-          this.ladderBlocks = [];
-          this.backgroundBlocks = [];
-          this.preparation.scoreBoard();
-
-          for (const block of this.Level0BackgroundBlocks) {
-            block.drawWoodenBlock();
-          }
-          for (const data of this.level0LadderBlocks) {
-            data.drawLadder();
-          }
-          for (let lvl2BlueObs of this.lvl2WoodObstacle) {
-            lvl2BlueObs.moveWoodObstacle();
-          }
-          this.mario.drawMario();
-          this.burner.drawBurner();
+        if (this.fireObsTimer) {
+          clearInterval(this.fireObsTimer);
         }
+        // Fire Obstacle
+        console.log(this.fireObstacle);
+        for (const fireObs of this.fireObstacle) {
+          fireObs.moveFireObstacle();
+        }
+
+        this.fireObsTimer = setInterval(() => {
+          this.fireSignal += 1;
+          if (!(this.fireSignal % 1000)) {
+            this.fireSignal = 0;
+            this.fireObstacle.push(
+              new FireObstacle(
+                this.ctx,
+                fireObsXpos,
+                fireObsYpos,
+                fireObsWidth,
+                fireObsHeight,
+                this.ladderBlocks,
+                this.backgroundBlocks
+              )
+            );
+          }
+        }, 1);
+
+        //Draw Background
+        for (const block of this.backgroundBlocks) {
+          block.drawWoodenBlock();
+        }
+        //Draw Ladder
+        for (const individualBlock of this.ladderBlocks) {
+          individualBlock.drawLadder();
+        }
+
+        for (let spclObs of this.specialObs) {
+          spclObs.moveSpecialObstacle();
+        }
+
+        //PowerUP Hammer
+        this.powerUpHammer.drawHammer();
+
+        //Draw character and obstacle
+        this.mario.drawMario();
+        this.kong.drawKong();
+        this.groupObstacle.drawGroupObs();
+        this.fire.drawFire();
 
         this.mario.marioObstacleCollision();
         this.mario.marioSpecialObjCollision();

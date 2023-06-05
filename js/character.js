@@ -11,7 +11,6 @@ class Mario {
     hammer,
     specialObstacle,
     eachWoodObstalce,
-    lvl2Ladder,
     fireObstacle
   ) {
     this.ctx = ctx;
@@ -28,7 +27,6 @@ class Mario {
     this.hammer = hammer;
     this.specialObstacle = specialObstacle;
     this.eachWoodObstalce = eachWoodObstalce;
-    this.lvl2ladder = lvl2Ladder;
     this.fireObstacle = fireObstacle;
 
     this.direction = null;

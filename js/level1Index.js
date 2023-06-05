@@ -10,9 +10,9 @@ class Level1HerGame {
     this.eachWoodObstacle = [];
     this.objectTimer = null;
 
-    this.lvl1BackgroundBlocks = [];
-    this.lvl1LadderBlocks = [];
-    this.lvl1WoodObstacle = [];
+    this.lvl0BackgroundBlocks = [];
+    this.lvl0LadderBlocks = [];
+    this.lvl0WoodObstacle = [];
 
     this.init1stLevelWoodenBlocks();
     this.init1stLevelLadderBlocks();
@@ -40,34 +40,34 @@ class Level1HerGame {
       marioStartingYpos,
       marioWidth,
       marioHeight,
-      this.lvl1LadderBlocks,
-      this.lvl1BackgroundBlocks,
+      this.lvl0LadderBlocks,
+      this.lvl0BackgroundBlocks,
       [],
       "",
       [],
-      this.lvl1WoodObstacle,
+      this.lvl0WoodObstacle,
       [],
       this
     );
 
     this.preparation = new GamePreperation(
       this.ctx,
-      this.lvl1BackgroundBlocks,
+      this.lvl0BackgroundBlocks,
       this.mario,
       this.kong,
       null,
-      this.lvl1LadderBlocks
+      this.lvl0LadderBlocks
     );
 
     this.restart = new RestartGame(
       this.ctx,
       this.mario,
-      this.lvl1BackgroundBlocks,
+      this.lvl0BackgroundBlocks,
       null,
       null,
       null,
       this.kong,
-      this.lvl1LadderBlocks
+      this.lvl0LadderBlocks
     );
 
     this.burner = new Burner(
@@ -145,27 +145,27 @@ class Level1HerGame {
   }
 
   init1stLevelWoodenBlocks() {
-    for (const data of lvl1WoodenBlocks) {
+    for (const data of lvl0WoodenBlocks) {
       const level1Block = new WoodenBlock(
         data.x,
         data.y,
         data.width,
         WOOD_HEIGHT
       );
-      this.lvl1BackgroundBlocks.push(level1Block);
+      this.lvl0BackgroundBlocks.push(level1Block);
     }
   }
 
   init1stLevelLadderBlocks() {
-    for (const data of lvl1LadderBlockData) {
+    for (const data of lvl0LadderBlockData) {
       const level1Ladder = new Ladder(data.x, data.y, 200);
-      this.lvl1LadderBlocks.push(level1Ladder);
+      this.lvl0LadderBlocks.push(level1Ladder);
     }
   }
 
   init1stLevelBlueObstacle() {
-    for (let i = 0; i < this.lvl1BackgroundBlocks.length - 1; i++) {
-      const recentblock = this.lvl1BackgroundBlocks[i];
+    for (let i = 0; i < this.lvl0BackgroundBlocks.length - 1; i++) {
+      const recentblock = this.lvl0BackgroundBlocks[i];
 
       const xpos = generateObstacleXpos(
         recentblock.woodXpos,
@@ -173,14 +173,14 @@ class Level1HerGame {
       );
       const ypos = recentblock.woodYpos - blueObsHeight;
 
-      const lvl1BlueObstacle = new ObstacleInEachWood(
+      const lvl0BlueObstacle = new ObstacleInEachWood(
         this.ctx,
         xpos,
         ypos,
-        this.lvl1BackgroundBlocks
+        this.lvl0BackgroundBlocks
       );
 
-      this.lvl1WoodObstacle.push(lvl1BlueObstacle);
+      this.lvl0WoodObstacle.push(lvl0BlueObstacle);
     }
   }
 
@@ -193,14 +193,14 @@ class Level1HerGame {
       if (!gameEnd) {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.preparation.scoreBoard();
-        for (const block of this.lvl1BackgroundBlocks) {
+        for (const block of this.lvl0BackgroundBlocks) {
           block.drawWoodenBlock();
         }
-        for (const data of this.lvl1LadderBlocks) {
+        for (const data of this.lvl0LadderBlocks) {
           data.drawLadder();
         }
-        for (let lvl2BlueObs of this.lvl1WoodObstacle) {
-          lvl2BlueObs.moveLvl1Obstacle();
+        for (let lvl2BlueObs of this.lvl0WoodObstacle) {
+          lvl2BlueObs.movelvl0Obstacle();
         }
         this.mario.drawMario();
         this.burner.drawBurner();
