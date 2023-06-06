@@ -77,8 +77,10 @@ class GamePreperation {
     this.ctx.fillText(score, 120, 40);
   }
 
-  timeBoard() {
+  drawTimer() {
     this.ctx.font = "bold 24px Verdana";
     this.ctx.fillStyle = "black";
+    this.ctx.fillText("Time Remaining : ", 550, 40);
+    this.ctx.fillText(timeRemaining, 800, 40);
   }
 }

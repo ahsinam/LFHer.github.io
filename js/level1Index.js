@@ -13,6 +13,8 @@ class Level1HerGame {
     this.lvl0BackgroundBlocks = [];
     this.lvl0LadderBlocks = [];
     this.lvl0WoodObstacle = [];
+    this.timerSignal = 0;
+    this.gameTimer = null;
 
     this.init1stLevelWoodenBlocks();
     this.init1stLevelLadderBlocks();
@@ -46,7 +48,8 @@ class Level1HerGame {
       "",
       [],
       this.lvl0WoodObstacle,
-      []
+      [],
+      ""
     );
 
     this.preparation = new GamePreperation(
@@ -191,6 +194,23 @@ class Level1HerGame {
     if (gameStart) {
       if (!gameEnd) {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        this.preparation.drawTimer();
+
+        if (this.gameTimer) {
+          clearInterval(this.gameTimer);
+        }
+        this.gameTimer = setInterval(() => {
+          this.timerSignal += 1;
+          if (!(this.timerSignal % 400)) {
+            this.timerSignal = 0;
+            if (timeRemaining == 0 && !gameEnd) {
+              gameEnd = true;
+            }
+            timeRemaining -= 1;
+          }
+        }, 1);
+
         this.preparation.scoreBoard();
         for (const block of this.lvl0BackgroundBlocks) {
           block.drawWoodenBlock();
@@ -199,10 +219,22 @@ class Level1HerGame {
           data.drawLadder();
         }
         for (let lvl2BlueObs of this.lvl0WoodObstacle) {
-          lvl2BlueObs.movelvl0Obstacle();
+          lvl2BlueObs.moveLvl1Obstacle();
         }
         this.mario.drawMario();
         this.burner.drawBurner();
+
+        this.mario.marioBlueObsCollision();
+      }
+      if (gameEnd) {
+        timeRemaining = 60;
+        if (score > highScore) {
+          highScore = score;
+          localStorage.setItem("highScoreWood", score);
+        }
+        this.preparation.endOfGame();
+
+        this.restart.drawButton();
       }
     }
   };

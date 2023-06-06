@@ -103,6 +103,15 @@ class HerGame {
       hammerHeight
     );
 
+    this.characterObs = new CharacterObstacle(
+      this.ctx,
+      characterObsXpos,
+      characterObsYpos,
+      characterObsWidth,
+      characterObsHeight,
+      this.backgroundBlocks
+    );
+
     this.mario = new Mario(
       this.ctx,
       marioStartingXpos,
@@ -118,7 +127,7 @@ class HerGame {
       this.fireObstacle,
       [],
       [],
-      this
+      this.characterObs
     );
 
     this.preparation = new GamePreperation(
@@ -199,7 +208,7 @@ class HerGame {
         climbLadder = false;
       }
       if (e.key == "s") {
-        if (gameStart) {
+        if (gameStart & !gameEndss) {
           this.ctx.clearRect(
             this.mario.marioXpos,
             this.mario.marioYpos,
@@ -221,6 +230,7 @@ class HerGame {
   //ladder Block
   initLadderBlocks() {
     const ladderBlockData = [];
+    let prvladderX1 = [];
     for (let i = 0; i < this.backgroundBlocks.length - 1; i++) {
       const currentWoodenBlock = this.backgroundBlocks[i];
       const nextWoodenBlock = this.backgroundBlocks[i + 1];
@@ -366,6 +376,7 @@ class HerGame {
     if (gameStart == true) {
       if (gameEnd == false) {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         this.preparation.scoreBoard();
         if (this.objectTimer) {
           clearInterval(this.objectTimer);
@@ -450,7 +461,7 @@ class HerGame {
               )
             );
           }
-        }, 1);
+        }, 100);
 
         //Draw Background
         for (const block of this.backgroundBlocks) {
@@ -473,11 +484,15 @@ class HerGame {
         this.kong.drawKong();
         this.groupObstacle.drawGroupObs();
         this.fire.drawFire();
+        this.princess.drawPrincess();
+        this.characterObs.drawCharacterObs();
+        this.characterObs.moveCharacterObs();
 
         this.mario.marioObstacleCollision();
         this.mario.marioSpecialObjCollision();
         this.mario.marioBlueObsCollision();
         this.mario.marioFireObsCollision();
+        // this.mario.marioCharacterObsCollision();
       }
       if (gameEnd == true) {
         if (score > highScore) {

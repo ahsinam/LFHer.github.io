@@ -101,6 +101,15 @@ const princessYpos = 0;
 const princessWidth = 40;
 const princessHeight = 100;
 
+//CharacterObs
+const characterObsXpos = 600;
+const characterObsYpos = 760;
+const characterObsWidth = 100;
+const characterObsHeight = 60;
+
+//Timer
+let timeRemaining = 60;
+
 var level1 = +localStorage.getItem("level1") || true;
 var level0 = +localStorage.getItem("level0") || false;
 // var level1 = +localStorage.getItem("level1") || false;
