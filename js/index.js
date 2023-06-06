@@ -125,8 +125,7 @@ class HerGame {
       this.specialObs,
       this.eachWoodObstacle,
       this.fireObstacle,
-      [],
-      [],
+
       this.characterObs
     );
 
@@ -208,7 +207,7 @@ class HerGame {
         climbLadder = false;
       }
       if (e.key == "s") {
-        if (gameStart & !gameEndss) {
+        if (gameStart & !gameEnd) {
           this.ctx.clearRect(
             this.mario.marioXpos,
             this.mario.marioYpos,
@@ -492,7 +491,7 @@ class HerGame {
         this.mario.marioSpecialObjCollision();
         this.mario.marioBlueObsCollision();
         this.mario.marioFireObsCollision();
-        // this.mario.marioCharacterObsCollision();
+        this.mario.marioCharacterObsCollision();
       }
       if (gameEnd == true) {
         if (score > highScore) {

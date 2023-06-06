@@ -29,6 +29,7 @@ class Mario {
     this.specialObstacle = specialObstacle;
     this.eachWoodObstalce = eachWoodObstalce;
     this.fireObstacle = fireObstacle;
+    this.characterObstacle = characterObstacle;
 
     this.direction = null;
 
@@ -298,25 +299,21 @@ class Mario {
       marioRect.x < objectRect.x + objectRect.width &&
       marioRect.x + marioRect.width > objectRect.x &&
       marioRect.y < objectRect.y + objectRect.height &&
-      marioRect.y + marioRect.height > objectRect.y &&
-      !this.powerUpMode
+      marioRect.y + marioRect.height > objectRect.y
+      // && !this.powerUpMode
     ) {
       gameEnd = true;
     }
 
-    if (
-      marioRect.x < objectRect.x + objectRect.width &&
-      marioRect.x + marioRect.width > objectRect.x &&
-      marioRect.y < objectRect.y + objectRect.height &&
-      marioRect.y + marioRect.height > objectRect.y &&
-      this.powerUpMode
-    ) {
-      const indexOfObstacle = this.specialObstacle.indexOf(block);
-      if (indexOfObstacle !== -1) {
-        this.specialObstacle.splice(indexOfObstacle, 1);
-        score += 2;
-      }
-    }
+    // if (
+    //   marioRect.x < objectRect.x + objectRect.width &&
+    //   marioRect.x + marioRect.width > objectRect.x &&
+    //   marioRect.y < objectRect.y + objectRect.height &&
+    //   marioRect.y + marioRect.height > objectRect.y &&
+    //   this.powerUpMode
+    // ) {
+
+    // }
   }
 
   resetMario() {

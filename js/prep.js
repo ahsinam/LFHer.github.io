@@ -32,7 +32,7 @@ class GamePreperation {
 
   beforeStart() {
     this.ctx.font = "bold 24px Verdana";
-    this.ctx.fillStyle = "#ffa54f";
+    this.ctx.fillStyle = "green";
     this.ctx.fillText("High score", 100, 70);
     this.ctx.fillText(`${highScore}`, 250, 70);
     this.ctx.fillText("Press A to move left", 500, 50);
