@@ -160,6 +160,8 @@ class HerGame {
     this.initLadderBlocks();
     this.initBlueObstacle();
 
+    this.jumped = 0;
+
     addEventListener("keydown", (e) => {
       if (e.key == "d") {
         if (gameStart && !gameEnd) {
@@ -181,10 +183,13 @@ class HerGame {
       }
       if (e.key == "s") {
         if (gameStart && !gameEnd) {
-          console.log({ climbLadder });
           if (!this.mario.isClimbing()) {
-            marioJump = true;
-            this.mario.moveMario();
+            console.log({ marioJump });
+            if (!marioJump) {
+              marioJump = true;
+              this.jumped = 60;
+              this.mario.moveMario();
+            }
           }
         }
       }
@@ -216,8 +221,24 @@ class HerGame {
           );
           marioJump = false;
           if (!this.mario.isClimbing()) {
-            this.mario.marioYpos += 80;
+            this.mario.marioYpos += this.jumped;
+
+            const [currWood, currWoodIndex] = this.mario.getCurrentWood();
+
+            if (
+              this.mario.marioXpos > currWood.woodXpos + currWood.woodWidth ||
+              this.mario.marioXpos < currWood.woodXpos - this.mario.marioWidth
+            ) {
+              this.mario.marioYpos =
+                this.mario.background[currWoodIndex + 1].woodYpos -
+                this.mario.marioHeight;
+            }
+            this.mario.marioYpos = Math.min(
+              970 - this.mario.marioHeight,
+              this.mario.marioYpos
+            );
           }
+          this.jumped = 0;
         }
       }
       if (e.key == "x") {

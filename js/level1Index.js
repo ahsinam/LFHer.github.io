@@ -101,10 +101,10 @@ class Level1HerGame {
       }
       if (e.key == "s") {
         if (gameStart && !gameEnd) {
-          if (!this.mario.isClimbing()) {
-            marioJump = true;
-            this.mario.moveMario();
-          }
+          // if (!this.mario.isClimbing()) {
+          //   marioJump = true;
+          //   this.mario.moveMario();
+          // }
         }
       }
       if (e.key == "x") {

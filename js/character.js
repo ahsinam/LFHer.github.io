@@ -132,10 +132,10 @@ class Mario {
     }
 
     if (marioJump && !this.isClimbing()) {
-      this.marioYpos -= 80;
+      this.marioYpos -= 60;
       console.log({ direction: this.getDirection() });
       if (this.getDirection() == "left") {
-        this.marioXpos -= 100;
+        this.marioXpos -= 200;
         this.marioXpos = Math.max(0, this.marioXpos);
       } else if (this.getDirection() == "right") {
         this.marioXpos += 200;
@@ -174,8 +174,9 @@ class Mario {
       Math.ceil(this.marioXpos) <= w.woodXpos + w.woodWidth &&
       Math.ceil(this.marioYpos) + this.marioHeight - 5 - (5 - i) * 2.5 <=
         w.woodYpos
-    )
+    ) {
       return true;
+    }
 
     return false;
   }
