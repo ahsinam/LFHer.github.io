@@ -53,7 +53,10 @@ class Mario {
 
     this.currentMario = this.marioImage;
 
-    this.marioMovementAudio = new Audio("sound/marioMovement.mp3");
+    this.marioMovementAudio = new Audio("sound/mario.mp3");
+    this.marioJumpAudio = new Audio("sound/marioJump.mp3");
+    this.marioDeathAudio = new Audio("sound/marioDeath.mp3");
+    this.gameOverAudio = new Audio("sound/gameOver.mp3");
   }
 
   getCurrentWood() {
@@ -141,17 +144,9 @@ class Mario {
         this.marioXpos += 200;
         this.marioXpos = Math.min(CANVAS_WIDTH - marioWidth, this.marioXpos);
       }
-      // this.marioXpos += 100;
+      this.marioJumpAudio.play();
       this.marioJump = true;
     }
-
-    // if (this.marioYpos < 100) {
-    //   level1 = false;
-    //   level0 = true;
-
-    //   localStorage.setItem("level1", level1);
-    //   localStorage.setItem("level0", level0);
-    // }
 
     const [currWood, currWoodIndex] = this.getCurrentWood();
 
@@ -164,6 +159,9 @@ class Mario {
     }
     this.drawMario();
     this.marioMovementAudio.play();
+    if (this.marioYpos <= 100) {
+      gameEnd = true;
+    }
   }
 
   isOnWood() {
@@ -303,6 +301,7 @@ class Mario {
       marioRect.y + marioRect.height > objectRect.y &&
       !this.powerUpMode
     ) {
+      this.marioDeathAudio.play();
       gameEnd = true;
     }
 
@@ -381,6 +380,7 @@ class Mario {
         marioRect.y + marioRect.height > objectRect.y &&
         !this.powerUpMode
       ) {
+        this.marioDeathAudio.play();
         gameEnd = true;
       }
       if (
@@ -414,19 +414,6 @@ class Mario {
           this.powerUpMode = false;
         }, 10000);
       }
-      // if (
-      //   this.marioXpos < block.fireObsXpos + block.fireObsWidth &&
-      //   this.marioXpos + this.marioWidth > block.fireObsXpos &&
-      //   this.marioYpos < block.fireObsYpos + block.fireObsHeight &&
-      //   this.marioYpos + this.marioHeight > block.fireObsYpos &&
-      //   this.powerUpMode
-      // ) {
-      //   const indexOfFireObs = this.fireObstacle.indexOf(block);
-      //   if (indexOfFireObs !== 1) {
-      //     this.fireObstacle.splice(indexOfFireObs, 1);
-      //     score++;
-      //   }
-      // }
     }
   }
 }

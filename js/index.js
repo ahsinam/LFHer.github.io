@@ -239,6 +239,8 @@ class HerGame {
         marioDown = false;
       }
     });
+
+    this.marioDeathAudio = new Audio("sound/marioDeath.mp3");
   }
 
   //ladder Block
