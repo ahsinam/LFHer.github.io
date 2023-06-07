@@ -272,6 +272,7 @@ class HerGame {
         }
       );
     }
+    
     for (const data of ladderBlockData) {
       const ladderBlock = new Ladder(data.x, data.y, data.height);
       this.ladderBlocks.push(ladderBlock);

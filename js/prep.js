@@ -38,10 +38,10 @@ class GamePreperation {
     this.ctx.fillStyle = "white";
     this.ctx.fillText("High score", 100, 70);
     this.ctx.fillText(`${highScore}`, 250, 70);
-    this.ctx.fillText("Press A to move left", 500, 50);
+    this.ctx.fillText("Press a to move left", 500, 50);
     this.ctx.fillText("Press d to move right", 500, 75);
-    this.ctx.fillText("Press W to move Up", 500, 100);
-    this.ctx.fillText("Press X to move down", 500, 125);
+    this.ctx.fillText("Press w to move Up", 500, 100);
+    this.ctx.fillText("Press x to move down", 500, 125);
     this.ctx.fillText("Press s to move jump", 500, 150);
 
     for (const block of this.wood) {

@@ -64,8 +64,6 @@ class SpecialObstacle {
     let xDistance = wayPoint.x - this.specialObsXpos;
     //Check for collision with ladder
     if (this.collisionWithLadder()) {
-      // this.specialObsYpos += 120;
-      // this.wayPointIndex += 2;
       this.falling = true;
     } else {
       let angle = Math.atan2(yDistance, xDistance);
