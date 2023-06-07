@@ -16,7 +16,7 @@ const calculateRandomXpos = () => {
     xPos1 +
     ladderMinXpos +
     Math.floor(Math.random() * (ladderMaxYpos - xPos1 - ladderMinDistance));
-
+  console.log(xPos1, xPos2);
   return { xPos1, xPos2 };
 };
 

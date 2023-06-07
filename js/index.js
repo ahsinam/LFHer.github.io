@@ -258,14 +258,15 @@ class HerGame {
       const ladderStartY2 = positions.ladderStartY;
       const ladderEndY2 = positions.ladderEndY;
 
+      const randomXPos = calculateRandomXpos();
       ladderBlockData.push(
         {
-          x: calculateRandomXpos().xPos1,
+          x: randomXPos.xPos1,
           y: ladderStartY1,
           height: ladderEndY1 - ladderStartY1 + 20,
         },
         {
-          x: calculateRandomXpos().xPos2,
+          x: randomXPos.xPos2,
           y: ladderStartY2,
           height: ladderEndY2 - ladderStartY2 + 20,
         }
