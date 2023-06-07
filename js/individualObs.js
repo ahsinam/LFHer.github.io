@@ -10,7 +10,7 @@ class IndividualObstacle {
     this.wayPointIndex = 0;
 
     this.indObsImage = new Image();
-    this.indObsImage.src = "../Images/obstacle/obstacleBottle.png";
+    this.indObsImage.src = "Images/obstacle/obstacleBottle.png";
   }
 
   drawIndObstacle() {

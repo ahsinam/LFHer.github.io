@@ -11,10 +11,10 @@ class CharacterObstacle {
     this.dx = 4;
 
     this.characterObsRightImage = new Image();
-    this.characterObsRightImage.src = "../Images/characterObs/movingRight.png";
+    this.characterObsRightImage.src = "Images/characterObs/movingRight.png";
 
     this.characterObsLeftImage = new Image();
-    this.characterObsLeftImage.src = "../Images/characterObs/movingLeft.png";
+    this.characterObsLeftImage.src = "Images/characterObs/movingLeft.png";
 
     this.currentImage = this.characterObsLeftImage;
 

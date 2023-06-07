@@ -108,14 +108,12 @@ const characterObsWidth = 100;
 const characterObsHeight = 60;
 
 //Timer
-let timeRemaining = 60;
-
-var level1 = +localStorage.getItem("level1") || true;
-var level0 = +localStorage.getItem("level0") || false;
-// var level1 = +localStorage.getItem("level1") || false;
-// var level0 = +localStorage.getItem("level0") || true;
+let timeRemaining = 300;
 
 //Score
 let score = 0;
 
 var highScore = +localStorage.getItem("highScoreWood") || 0;
+
+// var level1 = +localStorage.getItem("level1") || false;
+// var level0 = +localStorage.getItem("level0") || true;

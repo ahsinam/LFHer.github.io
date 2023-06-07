@@ -7,7 +7,7 @@ class DonkeyKong {
     this.kongHeight = height;
 
     this.kongImage = new Image();
-    this.kongImage.src = "../Images/kong/kongMovement.png";
+    this.kongImage.src = "Images/kong/kongMovement.png";
     this.frames = 0;
 
     setInterval(() => this.changeFrame(), 1600);

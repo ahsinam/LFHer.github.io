@@ -8,7 +8,7 @@ class Fire {
 
     this.frames = 0;
     this.fireImage = new Image();
-    this.fireImage.src = "../Images/fire/fireImage.png";
+    this.fireImage.src = "Images/fire/fireImage.png";
 
     setInterval(() => this.changeFrame(), 1000);
   }

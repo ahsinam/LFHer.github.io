@@ -49,15 +49,14 @@ class GamePreperation {
       individualBlock.drawLadder();
     }
     this.mario.drawMario();
-    if (level1) {
-      this.obstacle.drawGroupObs();
-    }
-    // this.kong.drawKong();
+
+    this.obstacle.drawGroupObs();
+
     this.drawStartButton();
   }
 
   drawStartButton() {
-    this.ctx.fillStyle = "#ffa54f";
+    this.ctx.fillStyle = "purple";
     this.ctx.fillRect(this.buttonX, this.buttonY, this.width, this.height);
     this.ctx.fillStyle = "#ffa54f";
     this.ctx.font = "bold 24px Verdana";
@@ -81,6 +80,6 @@ class GamePreperation {
     this.ctx.font = "bold 24px Verdana";
     this.ctx.fillStyle = "black";
     this.ctx.fillText("Time Remaining : ", 550, 40);
-    this.ctx.fillText(timeRemaining, 800, 40);
+    this.ctx.fillText(timeRemaining + " seconds", 800, 40);
   }
 }

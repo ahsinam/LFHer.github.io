@@ -14,6 +14,7 @@ body {
 canvas {
   border: 1px solid black;
   /* background: url("./Images/background/background1.png"); */
+  background: url("./Images/background/background5.png");
 
   background-size: cover;
 }

@@ -12,7 +12,7 @@ class FireObstacle {
 
     this.frames = 0;
     this.fireObsImage = new Image();
-    this.fireObsImage.src = "../Images/obstacle/fireObs.png";
+    this.fireObsImage.src = "Images/obstacle/fireObs.png";
   }
 
   drawFireObstacle() {

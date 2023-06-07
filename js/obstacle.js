@@ -7,7 +7,7 @@ class GroupObstacle {
     this.groupObsHeight = height;
 
     this.groupObsImage = new Image();
-    this.groupObsImage.src = "../Images/obstacle/obstacleBox.png";
+    this.groupObsImage.src = "Images/obstacle/obstacleBox.png";
   }
 
   drawGroupObs() {
@@ -20,5 +20,3 @@ class GroupObstacle {
     );
   }
 }
-
-

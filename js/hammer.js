@@ -7,7 +7,7 @@ class HammerPowerUp {
     this.hammerHeight = height;
 
     this.hammerImage = new Image();
-    this.hammerImage.src = "../Images/instruments/hammer.png";
+    this.hammerImage.src = "Images/instruments/hammer.png";
   }
 
   drawHammer() {

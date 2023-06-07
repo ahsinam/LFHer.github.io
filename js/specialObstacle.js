@@ -16,7 +16,7 @@ class SpecialObstacle {
     this.wayPointIndex = 0;
 
     this.specialObsImage = new Image();
-    this.specialObsImage.src = "../Images/obstacle/specialObstacle.png";
+    this.specialObsImage.src = "Images/obstacle/specialObstacle.png";
 
     setInterval(() => this.changeFrame(), 1000);
   }

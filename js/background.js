@@ -7,7 +7,7 @@ class WoodenBlock {
     this.woodHeight = height;
     this.side = side;
     this.normalWoodImage = new Image();
-    this.normalWoodImage.src = "../Images/wood/wood1.png";
+    this.normalWoodImage.src = "Images/wood/wood1.png";
   }
 
   drawWoodenBlock() {

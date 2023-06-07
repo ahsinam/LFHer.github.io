@@ -8,7 +8,7 @@ class Burner {
     this.frames = 0;
 
     this.burnerImage = new Image();
-    this.burnerImage.src = "../Images/fire/fireImage.png";
+    this.burnerImage.src = "Images/fire/fireImage.png";
 
     setInterval(() => this.changeFrame(), 1000);
   }

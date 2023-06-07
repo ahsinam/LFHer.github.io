@@ -10,7 +10,7 @@ class ObstacleInEachWood {
     this.dx = 1;
 
     this.blueObsImage = new Image();
-    this.blueObsImage.src = "../Images/obstacle/obstacleBlue.png";
+    this.blueObsImage.src = "Images/obstacle/obstacleBlue.png";
 
     setInterval(() => this.changeFrame(), 1000);
   }

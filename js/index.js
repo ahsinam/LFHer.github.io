@@ -1,11 +1,3 @@
-level1 = true;
-level0 = false;
-// level1 = false;
-// level0 = true;
-
-localStorage.setItem("level1", level1);
-localStorage.setItem("level0", level0);
-
 class HerGame {
   constructor(x, y) {
     const startY = 200;
@@ -34,6 +26,8 @@ class HerGame {
     this.fireObsTimer = null;
     this.signal = 0;
     this.fireSignal = 0;
+    this.timerSignal = 0;
+    this.gameTimer = null;
 
     this.background = new WoodenBlock(
       0,
@@ -374,7 +368,8 @@ class HerGame {
       this.powerUpHammer,
       this.specialObs,
       this.eachWoodObstacle,
-      this.fireObstacle
+      this.fireObstacle,
+      this.characterObs
     );
 
     this.restart = new RestartGame(
@@ -483,6 +478,22 @@ class HerGame {
           }
         }, 100);
 
+        this.preparation.drawTimer();
+
+        if (this.gameTimer) {
+          clearInterval(this.gameTimer);
+        }
+        this.gameTimer = setInterval(() => {
+          this.timerSignal += 1;
+          if (!(this.timerSignal % 400)) {
+            this.timerSignal = 0;
+            if (timeRemaining == 0 && !gameEnd) {
+              gameEnd = true;
+            }
+            timeRemaining -= 1;
+          }
+        }, 1);
+
         //Draw Background
         for (const block of this.backgroundBlocks) {
           block.drawWoodenBlock();
@@ -533,13 +544,23 @@ class HerGame {
   };
 }
 
-const level1HerGame = new Level1HerGame(CANVAS_WIDTH, CANVAS_HEIGHT);
 const herGame = new HerGame(CANVAS_WIDTH, CANVAS_HEIGHT);
+herGame.init();
 
-if (!level1 && level0) {
-  console.log("level 0 initiated");
-  level1HerGame.init();
-} else if (level1 && !level0) {
-  console.log("1 initiated");
-  herGame.init();
-}
+// if (!level1 && level0) {
+//   console.log("level 0 initiated");
+//   level1HerGame.init();
+// } else if (level1 && !level0) {
+//   console.log("1 initiated");
+//   herGame.init();
+// }
+
+// const level1HerGame = new Level1HerGame(CANVAS_WIDTH, CANVAS_HEIGHT);
+
+// level1 = true;
+// level0 = false;
+// level1 = false;
+// level0 = true;
+
+// localStorage.setItem("level1", level1);
+// localStorage.setItem("level0", level0);

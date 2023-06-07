@@ -37,23 +37,23 @@ class Mario {
     this.powerUpTimer = null;
 
     this.marioImage = new Image();
-    this.marioImage.src = "../Images/mario/marioNormal.png";
+    this.marioImage.src = "Images/mario/marioNormal.png";
 
     this.marioRunningLeft = new Image();
-    this.marioRunningLeft.src = "../Images/mario/spriteRunningLeft.png";
+    this.marioRunningLeft.src = "Images/mario/spriteRunningLeft.png";
 
     this.marioMovingRight = new Image();
-    this.marioMovingRight.src = "../Images/mario/spriteRunningRight.png";
+    this.marioMovingRight.src = "Images/mario/spriteRunningRight.png";
 
     this.marioClimbing = new Image();
-    this.marioClimbing.src = "../Images/mario/spriteClimbingLadder.png";
+    this.marioClimbing.src = "Images/mario/spriteClimbingLadder.png";
 
     this.marioHammer = new Image();
-    this.marioHammer.src = "../Images/mario/marioWithHammer.png";
+    this.marioHammer.src = "Images/mario/marioWithHammer.png";
 
     this.currentMario = this.marioImage;
 
-    this.marioMovementAudio = new Audio("../sound/marioMovement.mp3");
+    this.marioMovementAudio = new Audio("sound/marioMovement.mp3");
   }
 
   getCurrentWood() {
@@ -145,13 +145,13 @@ class Mario {
       this.marioJump = true;
     }
 
-    if (this.marioYpos < 100) {
-      level1 = false;
-      level0 = true;
+    // if (this.marioYpos < 100) {
+    //   level1 = false;
+    //   level0 = true;
 
-      localStorage.setItem("level1", level1);
-      localStorage.setItem("level0", level0);
-    }
+    //   localStorage.setItem("level1", level1);
+    //   localStorage.setItem("level0", level0);
+    // }
 
     const [currWood, currWoodIndex] = this.getCurrentWood();
 
@@ -163,7 +163,7 @@ class Mario {
         this.background[currWoodIndex + 1].woodYpos - this.marioHeight;
     }
     this.drawMario();
-    // this.marioMovementAudio.play();
+    this.marioMovementAudio.play();
   }
 
   isOnWood() {
@@ -300,8 +300,8 @@ class Mario {
       marioRect.x < objectRect.x + objectRect.width &&
       marioRect.x + marioRect.width > objectRect.x &&
       marioRect.y < objectRect.y + objectRect.height &&
-      marioRect.y + marioRect.height > objectRect.y
-      // && !this.powerUpMode
+      marioRect.y + marioRect.height > objectRect.y &&
+      !this.powerUpMode
     ) {
       gameEnd = true;
     }
@@ -313,7 +313,6 @@ class Mario {
     //   marioRect.y + marioRect.height > objectRect.y &&
     //   this.powerUpMode
     // ) {
-
     // }
   }
 
@@ -329,16 +328,16 @@ class Mario {
     this.individualObstacle = this.individualObstacle;
 
     this.marioImage = new Image();
-    this.marioImage.src = "../Images/mario/marioNormal.png";
+    this.marioImage.src = "Images/mario/marioNormal.png";
 
     this.marioRunningLeft = new Image();
-    this.marioRunningLeft.src = "../Images/mario/spriteRunningLeft.png";
+    this.marioRunningLeft.src = "Images/mario/spriteRunningLeft.png";
 
     this.marioMovingRight = new Image();
-    this.marioMovingRight.src = "../Images/mario/spriteRunningRight.png";
+    this.marioMovingRight.src = "Images/mario/spriteRunningRight.png";
 
     this.marioClimbing = new Image();
-    this.marioClimbing.src = "../Images/mario/spriteClimbingLadder.png";
+    this.marioClimbing.src = "Images/mario/spriteClimbingLadder.png";
 
     this.currentMario = this.marioImage;
   }
@@ -409,21 +408,25 @@ class Mario {
         this.marioYpos + this.marioHeight > block.fireObsYpos &&
         !this.powerUpMode
       ) {
-        console.log("collision with fire");
+        if (this.powerUpMode) clearTimeout(this.powerUpTimer);
+        this.powerUpMode = true;
+        this.powerUpTimer = setTimeout(() => {
+          this.powerUpMode = false;
+        }, 10000);
       }
-      if (
-        this.marioXpos < block.fireObsXpos + block.fireObsWidth &&
-        this.marioXpos + this.marioWidth > block.fireObsXpos &&
-        this.marioYpos < block.fireObsYpos + block.fireObsHeight &&
-        this.marioYpos + this.marioHeight > block.fireObsYpos &&
-        this.powerUpMode
-      ) {
-        const indexOfFireObs = this.fireObstacle.indexOf(block);
-        if (indexOfFireObs !== 1) {
-          this.fireObstacle.splice(indexOfFireObs, 1);
-          score++;
-        }
-      }
+      // if (
+      //   this.marioXpos < block.fireObsXpos + block.fireObsWidth &&
+      //   this.marioXpos + this.marioWidth > block.fireObsXpos &&
+      //   this.marioYpos < block.fireObsYpos + block.fireObsHeight &&
+      //   this.marioYpos + this.marioHeight > block.fireObsYpos &&
+      //   this.powerUpMode
+      // ) {
+      //   const indexOfFireObs = this.fireObstacle.indexOf(block);
+      //   if (indexOfFireObs !== 1) {
+      //     this.fireObstacle.splice(indexOfFireObs, 1);
+      //     score++;
+      //   }
+      // }
     }
   }
 }
